@@ -5,20 +5,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Auth struct {}
-func (Auth) Register (group *gin.RouterGroup){
+type Group interface {
+	Register(group *gin.RouterGroup)
+}
+
+type AuthGroup struct {
+	LoginController *controllers.Login
+	RegisterController *controllers.Register
+}
+func (g *AuthGroup) Register (group *gin.RouterGroup){
 	newGroup := group.Group("")
 	{
-		newGroup.POST("/login", controllers.Login{}.Login)
-		newGroup.POST("/register", controllers.Register{}.Register)
+		newGroup.POST("/login", g.LoginController.Login)
+		newGroup.POST("/register", g.RegisterController.Register)
 	}
 }
 
-
-type User struct {}
-func (User) Register (group *gin.RouterGroup){
+type UserGroup struct {
+	UserController *controllers.User
+}
+func (g *UserGroup) Register (group *gin.RouterGroup){
 	newGroup := group.Group("/user")
 	{
-		newGroup.GET("/info", controllers.User{}.Info)
+		newGroup.GET("/info", g.UserController.Info)
 	}
 }
