@@ -1,5 +1,7 @@
 github.com/appleboy/gin-jwt v2.5.0+incompatible h1:oLQTP1fiGDoDKoC2UDqXD9iqCP44ABIZMMenfH/xCqw=
 github.com/appleboy/gin-jwt v2.5.0+incompatible/go.mod h1:pG7tv32IEe5wEh1NSQzcyD02ZZAqZWp07RdGiIhgaRQ=
+github.com/codegangsta/cli v1.20.0 h1:iX1FXEgwzd5+XN6wk5cVHOGQj6Q3Dcp20lUeS4lHNTw=
+github.com/codegangsta/cli v1.20.0/go.mod h1:/qJNoX69yVSKu5o4jLyXAENLRyk1uhi7zkbQ3slBdOA=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/gin-contrib/sse v0.0.0-20190125020943-a7658810eb74 h1:FaI7wNyesdMBSkIRVUuEEYEvmzufs7EqQvRAxfEXGbQ=

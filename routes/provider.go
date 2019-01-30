@@ -21,7 +21,7 @@ func (routes *Routes) v1(){
 	}
 }
 
-func registerRouteGroup(g Group, group *gin.RouterGroup){
+func registerRouteGroup(g RouteGrouper, group *gin.RouterGroup){
 	g.Register(group)
 }
 

@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Group interface {
+type RouteGrouper interface {
 	Register(group *gin.RouterGroup)
 }
 

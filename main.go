@@ -3,11 +3,15 @@ package main
 import (
 	"Wallet/app/models"
 	"Wallet/routes"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
+	"os"
+	"github.com/codegangsta/cli"
 )
 
 func main() {
-
+	cmd()
 	//DB = &models.BaseModel{}
 	//DB.Initialize()
 	//
@@ -15,7 +19,7 @@ func main() {
 	//DB.DB().Where("user_id = ?", 1).Find(userObj)
 	//println(userObj.UserID)
 	userObj := &models.User{}
-	println(userObj.User().UserID)
+	println(userObj.User().ID)
 
 	r := gin.Default()
 
@@ -28,3 +32,4 @@ func main() {
 
 	r.Run()
 }
+

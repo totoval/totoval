@@ -10,7 +10,7 @@ func init(){
 	ormConfig()
 }
 
-type ModelInterface interface {
+type Modeller interface {
 	GetObjArr() //@todo     public function getObjArr(?array $filter_arr = [], ?array $sort_arr = null, ?int $limit = null, bool $with_trashed = false): Collection;
 	GetObjArrPaginate() //@todo     public function getObjArrPaginate(int $per_page, ?array $filter_arr = [], ?array $sort_arr = null, bool $with_trashed = false): LengthAwarePaginator;
 }
@@ -25,6 +25,10 @@ func dbConnect(){
 
 	db = _db
 	//defer db.Close()
+}
+
+func DB() *gorm.DB {
+	return db
 }
 
 func ormConfig(){

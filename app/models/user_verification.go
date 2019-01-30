@@ -21,7 +21,7 @@ type UserVerification struct {
 	LegalPersonFrontPhotoUrl string     `gorm:"column:uv_legal_person_front_photo_url;type:longtext"`
 	LegalPersonBackPhotoUrl  string     `gorm:"column:uv_legal_person_back_photo_url;type:longtext"`
 	UVType                   string     `gorm:"column:uv_type;type:enum('PERSONAL','COMPANY');not null"`
-	Status                   string     `gorm:"column:uv_status;type:enum('PENDING','REJECTED','PASSED');default:PENDING;not null"`
+	Status                   string     `gorm:"column:uv_status;type:enum('PENDING','REJECTED','PASSED');default:'PENDING';not null"`
 	CreatedAt                time.Time  `gorm:"column:uv_created_at"`
 	UpdatedAt                time.Time  `gorm:"column:uv_updated_at"`
 	DeletedAt                *time.Time `gorm:"column:uv_deleted_at"`
