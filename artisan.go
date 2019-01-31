@@ -1,16 +1,23 @@
 package main
 
 import (
-	"Wallet/database/migrations"
-	"github.com/codegangsta/cli"
+	"github.com/urfave/cli"
 	"log"
 	"os"
+	"totoval-framework/cmd"
+	"totoval-framework/cmd/groups"
+	"totoval/database/migrations"
 )
 
-func main(){
+func main() {
 	app := cli.NewApp()
 	app.Name = "artisan"
 	app.Usage = "Let's work like an artisan"
+
+	chLog := make(chan interface{})
+
+	// command group
+	migrateCommand := &groups.MigrateCommand{MigratorInitializer: migrations.Initialize, ChLog: chLog}
 
 	//app.Flags = []cli.Flag {
 	//	cli.StringFlag{
@@ -22,27 +29,30 @@ func main(){
 	//}
 
 	app.Action = func(c *cli.Context) error {
-
 		return nil
 	}
 
 	app.Commands = []cli.Command{
-		{
-			Name:    "migrate",
-			Aliases: []string{"c"},
-			Usage:   "complete a task on the list",
-			Action:  func(c *cli.Context) error {
-				m := &migration.MigrationUtils{}
-				m.SetDB()
-				//m.Initialize()
-				m.Migrate()
-				return nil
-			},
-		},
+		migrateCommand.MigrationInit(),
+		migrateCommand.Migrate(),
+		migrateCommand.MigrateRollBack(),
 	}
 
 	err := app.Run(os.Args)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	receiveLog(chLog)
+}
+
+func receiveLog(chLog chan interface{}) {
+	for _log := range chLog {
+		if nil == _log {
+			os.Exit(1)
+		}
+		if __log, ok := _log.(cmd.TermLog); ok {
+			__log.Print()
+		}
 	}
 }

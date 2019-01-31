@@ -2,8 +2,8 @@ package controllers
 
 import "github.com/gin-gonic/gin"
 
-type Register struct {}
+type Register struct{}
 
-func (*Register) Register(c *gin.Context){
+func (*Register) Register(c *gin.Context) {
 
 }

@@ -9,7 +9,6 @@ import (
 	"time"
 )
 
-
 var (
 	TokenExpired     error  = errors.New("Token is expired")
 	TokenNotValidYet error  = errors.New("Token not active yet")
@@ -20,16 +19,16 @@ var (
 )
 
 type CustomClaims struct {
-	ID    int    `json:"id"`
-	Name  string `json:"name"`
+	ID   int    `json:"id"`
+	Name string `json:"name"`
 	//Email string `json:"email"`
 	jwt.StandardClaims
 }
 
-
 type JWT struct {
 	SigningKey []byte
 }
+
 func NewJWT() *JWT {
 	return &JWT{
 		[]byte(GetSignKey()),
@@ -101,7 +100,6 @@ func AuthRequired() gin.HandlerFunc {
 			}
 		}
 
-
 		j := NewJWT()
 		claims, err := j.ParseToken(token)
 		if err != nil {
@@ -118,4 +116,3 @@ func AuthRequired() gin.HandlerFunc {
 		c.Set("claims", claims)
 	}
 }
-

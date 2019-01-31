@@ -1,3 +1,3 @@
 package logic
 
-type Migration struct {}
+type Migration struct{}

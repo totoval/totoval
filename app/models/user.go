@@ -2,11 +2,12 @@ package models
 
 import (
 	"time"
+	"totoval-framework/model"
 )
 
 type User struct {
-	BaseModel
-	ID         uint       `gorm:"column:user_id;primary_key"`
+	model.BaseModel
+	ID         uint       `gorm:"column:user_id;primary_key;auto_increment"`
 	Name       string     `gorm:"column:user_name;type:varchar(100)"`
 	Email      string     `gorm:"column:user_email;type:varchar(100);unique_index"`
 	Telephone  string     `gorm:"column:user_telephone;type:varchar(100);unique_index"`
@@ -17,8 +18,8 @@ type User struct {
 	DeletedAt  *time.Time `gorm:"column:user_deleted_at"`
 }
 
-func (user *User) User() (*User) {
-	db.Where("user_id = ?", 1).Find(user)
+func (user *User) User() *User {
+	model.DB().Where("user_id = ?", 1).Find(user)
 	return user
 }
 

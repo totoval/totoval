@@ -1,21 +1,21 @@
 package main
 
 import (
-	"Wallet/app/models"
-	"Wallet/routes"
 	"fmt"
+	"github.com/codegangsta/cli"
 	"github.com/gin-gonic/gin"
 	"log"
 	"os"
-	"github.com/codegangsta/cli"
+	"totoval/app/models"
+	"totoval/routes"
 )
 
 func main() {
 	cmd()
-	//DB = &models.BaseModel{}
+	//DB = &model.BaseModel{}
 	//DB.Initialize()
 	//
-	//userObj := &models.User{}
+	//userObj := &model.User{}
 	//DB.DB().Where("user_id = ?", 1).Find(userObj)
 	//println(userObj.UserID)
 	userObj := &models.User{}
@@ -32,4 +32,3 @@ func main() {
 
 	r.Run()
 }
-

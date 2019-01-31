@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"Wallet/app/http/controllers"
 	"github.com/gin-gonic/gin"
+	"totoval/app/http/controllers"
 )
 
 type RouteGrouper interface {
@@ -10,10 +10,11 @@ type RouteGrouper interface {
 }
 
 type AuthGroup struct {
-	LoginController *controllers.Login
+	LoginController    *controllers.Login
 	RegisterController *controllers.Register
 }
-func (g *AuthGroup) Register (group *gin.RouterGroup){
+
+func (g *AuthGroup) Register(group *gin.RouterGroup) {
 	newGroup := group.Group("")
 	{
 		newGroup.POST("/login", g.LoginController.Login)
@@ -24,7 +25,8 @@ func (g *AuthGroup) Register (group *gin.RouterGroup){
 type UserGroup struct {
 	UserController *controllers.User
 }
-func (g *UserGroup) Register (group *gin.RouterGroup){
+
+func (g *UserGroup) Register(group *gin.RouterGroup) {
 	newGroup := group.Group("/user")
 	{
 		newGroup.GET("/info", g.UserController.Info)
