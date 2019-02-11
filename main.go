@@ -1,25 +1,27 @@
 package main
 
 import (
-	"fmt"
-	"github.com/codegangsta/cli"
 	"github.com/gin-gonic/gin"
-	"log"
-	"os"
-	"totoval/app/models"
+	"totoval/config"
 	"totoval/routes"
 )
 
 func main() {
-	cmd()
+	config.Initialize()
+
+	//fmt.Println(c.Get("app.test"))
+	//fmt.Println(c.Get("app.test1"))
+	//test, _ := c.Get("app.test2").([]string)
+	//fmt.Println(test[0])
+	//fmt.Println(c.Get("app.test2"))
+	//println("结束")
+
+
 	//DB = &model.BaseModel{}
 	//DB.Initialize()
 	//
-	//userObj := &model.User{}
-	//DB.DB().Where("user_id = ?", 1).Find(userObj)
-	//println(userObj.UserID)
-	userObj := &models.User{}
-	println(userObj.User().ID)
+	//userObj := &models.User{}
+	//println(userObj.User().ID)
 
 	r := gin.Default()
 

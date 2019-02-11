@@ -48,7 +48,7 @@ func main() {
 
 func receiveLog(chLog chan interface{}) {
 	for _log := range chLog {
-		if nil == _log {
+		if _log == nil {
 			os.Exit(1)
 		}
 		if __log, ok := _log.(cmd.TermLog); ok {
