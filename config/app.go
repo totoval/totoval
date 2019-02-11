@@ -1,17 +1,20 @@
 package config
 
 import (
-	"totoval-framework/config"
+	. "totoval-framework/config"
 )
 
-func init(){
-	conf := make(map[string]interface{})
-	conf["test"] = 123
-	conf["test1"] = config.Env("test1", "test1 not set default")
-	conf["test2"] = []string{
-		"123", "456",
-	}
-	config.Add("app", conf)
+func init() {
+	app := make(map[string]interface{})
 
+	app["name"] = Env("APP_NAME", "Totoval")
+	app["env"] = Env("APP_ENV", "production")
+	app["debug"] = Env("APP_DEBUG", false)
+	app["timezone"] = "Asia/Shanghai"
+	app["locale"] = Env("APP_LOCALE", "en")
+	app["fallback_locale"] = "en"
+	app["key"] = Env("APP_KEY")
+	app["cipher"] = "AES-256-CBC"
+
+	Add("app", app)
 }
-
