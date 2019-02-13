@@ -4,24 +4,16 @@ import (
 	"github.com/gin-gonic/gin"
 	"totoval/config"
 	"totoval/routes"
+	c "totoval-framework/config"
 )
 
-func main() {
+func init(){
 	config.Initialize()
+}
 
-	//fmt.Println(c.Get("app.test"))
-	//fmt.Println(c.Get("app.test1"))
-	//test, _ := c.Get("app.test2").([]string)
-	//fmt.Println(test[0])
-	//fmt.Println(c.Get("app.test2"))
-	//println("结束")
+func main() {
 
-
-	//DB = &model.BaseModel{}
-	//DB.Initialize()
-	//
-	//userObj := &models.User{}
-	//println(userObj.User().ID)
+	//@cautions do not write DB ops at here
 
 	r := gin.Default()
 
@@ -32,5 +24,5 @@ func main() {
 	router := &routes.Routes{Router: r}
 	router.Register()
 
-	r.Run()
+	r.Run(":" + c.GetString("app.port"))
 }

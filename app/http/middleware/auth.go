@@ -110,7 +110,7 @@ func AuthRequired() gin.HandlerFunc {
 					return
 				}
 			}
-			c.JSON(http.StatusUnauthorized, gin.H{"error": 1, "message": err.Error()})
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": 1, "message": err.Error()})
 			return
 		}
 		c.Set("claims", claims)

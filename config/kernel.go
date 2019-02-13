@@ -1,5 +1,4 @@
 package config
 
-func Initialize(){
+func Initialize() {
 }
-
