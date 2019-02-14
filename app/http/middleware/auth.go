@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"totoval-framework/config"
 )
 
 var (
@@ -15,7 +16,7 @@ var (
 	TokenMalformed   error  = errors.New("That's not even a token")
 	TokenInvalid     error  = errors.New("Couldn't handle this token:")
 	TokenNoSet       error  = errors.New("Token is not set")
-	SignKey          string = "test"
+	SignKey          string = config.GetString("auth.sign_key")
 )
 
 type CustomClaims struct {
