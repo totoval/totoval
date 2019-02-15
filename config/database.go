@@ -1,7 +1,7 @@
 package config
 
 import (
-	. "totoval-framework/config"
+	. "github.com/totoval/framework/config"
 )
 
 func init(){

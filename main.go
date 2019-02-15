@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"totoval/config"
 	"totoval/routes"
-	c "totoval-framework/config"
+	c "github.com/totoval/framework/config"
 )
 
 func init(){

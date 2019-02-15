@@ -2,7 +2,7 @@ package models
 
 import (
 	"time"
-	"totoval-framework/model"
+	"github.com/totoval/framework/model"
 )
 
 type User struct {

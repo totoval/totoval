@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
-	"totoval-framework/config"
+	"github.com/totoval/framework/config"
 )
 
 var (

@@ -3,7 +3,7 @@ package migrations
 import (
 	"github.com/jinzhu/gorm"
 	"time"
-	"totoval-framework/database/migration"
+	"github.com/totoval/framework/database/migration"
 )
 
 func init() {

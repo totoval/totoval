@@ -4,8 +4,8 @@ import (
 	"github.com/urfave/cli"
 	"log"
 	"os"
-	"totoval-framework/cmd"
-	"totoval-framework/cmd/groups"
+	"github.com/totoval/framework/cmd"
+	"github.com/totoval/framework/cmd/groups"
 	"totoval/database/migrations"
 )
 
