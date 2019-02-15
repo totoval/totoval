@@ -6,3 +6,5 @@
 - [ ] Cache
 - [ ] Cookie Key
 - [ ] Queue, Worker
+- [ ] Document
+- [ ] CI
