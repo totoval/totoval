@@ -9,6 +9,6 @@ import (
 type User struct{}
 
 func (*User) Info(c *gin.Context) {
-	m_user := &models.User{}
-	c.JSON(http.StatusOK, m_user.User())
+	mUser := &models.User{}
+	c.JSON(http.StatusOK, mUser.User())
 }
