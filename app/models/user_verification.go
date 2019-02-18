@@ -2,11 +2,9 @@ package models
 
 import (
 	"time"
-	"github.com/totoval/framework/model"
 )
 
 type UserVerification struct {
-	model.BaseModel
 	ID                       uint       `gorm:"column:uv_id;primary_key;auto_increment"`
 	UserID                   uint       `gorm:"column:user_id;index;not null"`
 	CountryName              string     `gorm:"column:uv_country_name;type:varchar(100);not null"`
