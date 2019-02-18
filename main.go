@@ -21,8 +21,7 @@ func main() {
 
 	r.Use(gin.Recovery())
 
-	router := &routes.Routes{Router: r}
-	router.Register()
+	routes.Register(r)
 
 	r.Run(":" + c.GetString("app.port"))
 }
