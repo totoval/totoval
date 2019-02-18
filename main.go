@@ -2,12 +2,12 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	c "github.com/totoval/framework/config"
 	"totoval/config"
 	"totoval/routes"
-	c "github.com/totoval/framework/config"
 )
 
-func init(){
+func init() {
 	config.Initialize()
 }
 

@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/totoval/framework/cmd"
+	"github.com/totoval/framework/cmd/groups"
 	"github.com/urfave/cli"
 	"log"
 	"os"
-	"github.com/totoval/framework/cmd"
-	"github.com/totoval/framework/cmd/groups"
 	"totoval/database/migrations"
 )
 

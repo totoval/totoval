@@ -20,7 +20,7 @@ func (*Register) Register(c *gin.Context) {
 	user := models.User{}
 	/**
 	requests.UserRegister struct must contains models.User struct field
-	 */
+	*/
 	if err := model.Create(requestData, &user); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
 		return

@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"totoval/app/http/middleware"
+	"github.com/totoval/framework/http/middleware"
 )
 
 type Routes struct {
