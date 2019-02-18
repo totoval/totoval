@@ -153,6 +153,8 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/tarm/serial v0.0.0-20180830185346-98f6abe2eb07/go.mod h1:kDXzergiv9cbyO7IOYJZWg1U88JhDg3PB6klq9Hg2pA=
 github.com/totoval/framework v0.0.0-20190218153809-9064caccf469 h1:GaMaZ/kXaQ0dxFDWc8EXJWvjbf+8GM9Atj+0hAbe8TU=
 github.com/totoval/framework v0.0.0-20190218153809-9064caccf469/go.mod h1:i9ghcE9mmLGavYv9qZMB4U3MovLSVop6dF1b3CE+tvk=
+github.com/totoval/framework v0.0.0-20190218162251-d462a082285f h1:Jl+TNRrfbgBrWDkwucGY540i3fS8INvJgtatpoibagI=
+github.com/totoval/framework v0.0.0-20190218162251-d462a082285f/go.mod h1:i9ghcE9mmLGavYv9qZMB4U3MovLSVop6dF1b3CE+tvk=
 github.com/ugorji/go v1.1.2 h1:JON3E2/GPW2iDNGoSAusl1KDf5TRQ8k8q7Tp097pZGs=
 github.com/ugorji/go v1.1.2/go.mod h1:hnLbHMwcvSihnDhEfx2/BzKp2xb0Y+ErdfYcrs9tkJQ=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=
