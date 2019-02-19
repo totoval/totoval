@@ -6,14 +6,14 @@ import (
 )
 
 type AuthGroup struct {
-	LoginController    *controllers.Login
-	RegisterController *controllers.Register
+	LoginController    controllers.Login
+	RegisterController controllers.Register
 }
 
-func (g *AuthGroup) Register(group *gin.RouterGroup) {
+func (ag *AuthGroup) Register(group *gin.RouterGroup) {
 	newGroup := group.Group("")
 	{
-		newGroup.POST("/login", g.LoginController.Login)
-		newGroup.POST("/register", g.RegisterController.Register)
+		newGroup.POST("/login", ag.LoginController.Login)
+		newGroup.POST("/register", ag.RegisterController.Register)
 	}
 }

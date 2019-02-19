@@ -14,16 +14,16 @@ type V1 struct {
 func (v1 *V1) Register(router *gin.Engine) {
 	version := router.Group(v1.Prefix)
 	{
-		noAuth(version)
-		auth(version)
+		v1.noAuth(version)
+		v1.auth(version)
 	}
 }
 
-func noAuth(group *gin.RouterGroup) {
+func (v1 *V1) noAuth(group *gin.RouterGroup) {
 	route.RegisterRouteGroup(&groups.AuthGroup{}, group)
 }
 
-func auth(group *gin.RouterGroup) {
+func (v1 *V1) auth(group *gin.RouterGroup) {
 	authGroup := group.Group("", middleware.AuthRequired())
 
 	{

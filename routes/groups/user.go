@@ -6,12 +6,12 @@ import (
 )
 
 type UserGroup struct {
-	UserController *controllers.User
+	UserController controllers.User
 }
 
-func (g *UserGroup) Register(group *gin.RouterGroup) {
+func (ug *UserGroup) Register(group *gin.RouterGroup) {
 	newGroup := group.Group("/user")
 	{
-		newGroup.GET("/info", g.UserController.Info)
+		newGroup.GET("/info", ug.UserController.Info)
 	}
 }
