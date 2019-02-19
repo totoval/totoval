@@ -18,8 +18,17 @@ func (l *Login) Login(c *gin.Context) {
 	var requestData requests.UserLogin
 	if !l.Validate(c, &requestData) {return}
 
-	user := models.User{}
+	user := models.User{
+		Email: &requestData.Email,
+		Password: &requestData.Password,
+	}
 	model.First(&user)
+
+	//name := "tes123t"
+	//modifyUser := models.User{
+	//	Name: &name,
+	//}
+	//model.Save(&user, modifyUser)
 
 	c.JSON(http.StatusOK, gin.H{"data": user})
 	return

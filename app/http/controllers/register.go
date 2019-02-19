@@ -19,8 +19,8 @@ func (r *Register) Register(c *gin.Context) {
     if !r.Validate(c, &requestData) {return}
 
 	user := models.User{
-		Email: requestData.Email,
-		Password: requestData.Password,
+		Email: &requestData.Email,
+		Password: &requestData.Password,
 	}
 	/**
 	requests.UserRegister struct must contains models.User struct field
