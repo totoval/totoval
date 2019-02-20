@@ -3,12 +3,14 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	c "github.com/totoval/framework/config"
+	"github.com/totoval/framework/model"
 	"totoval/config"
 	"totoval/routes"
 )
 
 func init() {
 	config.Initialize()
+	model.Initialize()
 }
 
 func main() {

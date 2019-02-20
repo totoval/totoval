@@ -3,11 +3,18 @@ package main
 import (
 	"github.com/totoval/framework/cmd"
 	"github.com/totoval/framework/cmd/groups"
+	"github.com/totoval/framework/model"
 	"github.com/urfave/cli"
 	"log"
 	"os"
+	"totoval/config"
 	"totoval/database/migrations"
 )
+
+func init(){
+	config.Initialize()
+	model.Initialize()
+}
 
 func main() {
 	app := cli.NewApp()
