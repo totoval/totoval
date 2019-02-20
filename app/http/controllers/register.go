@@ -30,6 +30,8 @@ func (r *Register) Register(c *gin.Context) {
 		return
 	}
 
+	//@todo user ID 没有更新
+
 	c.JSON(http.StatusOK, gin.H{"data": user})
 	return
 }
