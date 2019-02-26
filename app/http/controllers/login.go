@@ -22,13 +22,7 @@ func (l *Login) Login(c *gin.Context) {
 		Email: &requestData.Email,
 		Password: &requestData.Password,
 	}
-	model.First(&user)
-
-	//name := "tes123t"
-	//modifyUser := models.User{
-	//	Name: &name,
-	//}
-	//model.Save(&user, modifyUser)
+	model.First(&user, false)
 
 	c.JSON(http.StatusOK, gin.H{"data": user})
 	return

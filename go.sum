@@ -68,6 +68,8 @@ github.com/grpc-ecosystem/grpc-gateway v1.5.0/go.mod h1:RSKVYQBd5MCa4OVpNdGskqpg
 github.com/hashicorp/hcl v1.0.0 h1:0Anlzjpi4vEasTeNFn2mLJgTSwt0+6sfsiTG8qcWGx4=
 github.com/hashicorp/hcl v1.0.0/go.mod h1:E5yfLk+7swimpb2L/Alb/PJmXilQ/rhwaUYs4T20WEQ=
 github.com/jellevandenhooff/dkim v0.0.0-20150330215556-f50fe3d243e1/go.mod h1:E0B/fFc00Y+Rasa88328GlI/XbtyysCtTHZS8h7IrBU=
+github.com/jinzhu/copier v0.0.0-20180308034124-7e38e58719c3 h1:sHsPfNMAG70QAvKbddQ0uScZCHQoZsT5NykGRCeeeIs=
+github.com/jinzhu/copier v0.0.0-20180308034124-7e38e58719c3/go.mod h1:yL958EeXv8Ylng6IfnvG4oflryUi3vgA3xPs9hmII1s=
 github.com/jinzhu/gorm v1.9.2 h1:lCvgEaqe/HVE+tjAR2mt4HbbHAZsQOv3XAZiEZV37iw=
 github.com/jinzhu/gorm v1.9.2/go.mod h1:Vla75njaFJ8clLU1W44h34PjIkijhjHIYnZxMqCdxqo=
 github.com/jinzhu/inflection v0.0.0-20180308033659-04140366298a h1:eeaG9XMUvRBYXJi4pg1ZKM7nxc5AfXfojeLLW7O5J3k=
@@ -161,6 +163,7 @@ github.com/totoval/framework v0.0.0-20190220082550-90adcb6f6467 h1:6kjxrQ64ewg+5
 github.com/totoval/framework v0.0.0-20190220082550-90adcb6f6467/go.mod h1:i9ghcE9mmLGavYv9qZMB4U3MovLSVop6dF1b3CE+tvk=
 github.com/totoval/framework v0.0.0-20190220102213-0f0f74c5061a/go.mod h1:i9ghcE9mmLGavYv9qZMB4U3MovLSVop6dF1b3CE+tvk=
 github.com/totoval/framework v0.0.0-20190220103842-bf3a626d0c4b/go.mod h1:i9ghcE9mmLGavYv9qZMB4U3MovLSVop6dF1b3CE+tvk=
+github.com/totoval/framework v0.0.0-20190226105031-74d3246b0ff9/go.mod h1:xdEciCPQcLiP0dmmqD9pkjS/YiqIZn/HqlMsHyP/vhg=
 github.com/ugorji/go v1.1.2 h1:JON3E2/GPW2iDNGoSAusl1KDf5TRQ8k8q7Tp097pZGs=
 github.com/ugorji/go v1.1.2/go.mod h1:hnLbHMwcvSihnDhEfx2/BzKp2xb0Y+ErdfYcrs9tkJQ=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=

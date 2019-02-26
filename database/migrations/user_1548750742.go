@@ -27,10 +27,12 @@ type User1548750742 struct {
 	migration.MigrationUtils
 }
 
-func (*User1548750742) Up(db *gorm.DB) {
-	db.CreateTable(&User{})
+func (*User1548750742) Up(db *gorm.DB) (*gorm.DB) {
+	db = db.CreateTable(&User{})
+	return db
 }
 
-func (*User1548750742) Down(db *gorm.DB) {
-	db.DropTableIfExists(&User{})
+func (*User1548750742) Down(db *gorm.DB) (*gorm.DB) {
+	db = db.DropTableIfExists(&User{})
+	return db
 }
