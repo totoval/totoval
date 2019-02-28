@@ -1,7 +1,7 @@
 # totoval
 
-**An artisan API web-framework written in go.**
-*Inspired by Laravel*
+**An artisan API web-framework written in go.**  
+*Inspired by Laravel*  
 
 ## 0x01 Roadmap
 - [x] Env Configuration
