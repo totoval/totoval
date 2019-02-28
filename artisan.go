@@ -11,7 +11,7 @@ import (
 	"totoval/database/migrations"
 )
 
-func init(){
+func init() {
 	config.Initialize()
 	model.Initialize()
 }

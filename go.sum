@@ -164,6 +164,8 @@ github.com/totoval/framework v0.0.0-20190220082550-90adcb6f6467/go.mod h1:i9ghcE
 github.com/totoval/framework v0.0.0-20190220102213-0f0f74c5061a/go.mod h1:i9ghcE9mmLGavYv9qZMB4U3MovLSVop6dF1b3CE+tvk=
 github.com/totoval/framework v0.0.0-20190220103842-bf3a626d0c4b/go.mod h1:i9ghcE9mmLGavYv9qZMB4U3MovLSVop6dF1b3CE+tvk=
 github.com/totoval/framework v0.0.0-20190226105031-74d3246b0ff9/go.mod h1:xdEciCPQcLiP0dmmqD9pkjS/YiqIZn/HqlMsHyP/vhg=
+github.com/totoval/framework v0.0.0-20190228131832-9ca273c98c4f h1:NgZOa3bK1yJx7yby/W87XVI2qOhSAhr3lILANE0lt7M=
+github.com/totoval/framework v0.0.0-20190228131832-9ca273c98c4f/go.mod h1:xdEciCPQcLiP0dmmqD9pkjS/YiqIZn/HqlMsHyP/vhg=
 github.com/ugorji/go v1.1.2 h1:JON3E2/GPW2iDNGoSAusl1KDf5TRQ8k8q7Tp097pZGs=
 github.com/ugorji/go v1.1.2/go.mod h1:hnLbHMwcvSihnDhEfx2/BzKp2xb0Y+ErdfYcrs9tkJQ=
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=

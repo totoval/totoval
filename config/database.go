@@ -1,9 +1,7 @@
 package config
-
 import (
 	. "github.com/totoval/framework/config"
 )
-
 func init() {
 	database := make(map[string]interface{})
 
@@ -22,6 +20,8 @@ func init() {
 		},
 	}
 	database["migrations"] = "migrations"
+	database["max_idle_connections"] = 10
+	database["max_open_connections"] = 100
 
 	database["redis"] = map[string]interface{}{
 		"default": map[string]interface{}{

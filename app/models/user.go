@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/totoval/framework/model"
 	"time"
 )
@@ -12,7 +13,7 @@ type User struct {
 	//Telephone  string     `gorm:"column:user_telephone;type:varchar(100);unique_index"`
 	Password *string `gorm:"column:user_password;type:varchar(100)"`
 	//VerifiedAt mysql.NullTime  `gorm:"column:user_verified_at"`
-	CreatedAt *time.Time  `gorm:"column:user_created_at"`
+	CreatedAt *time.Time `gorm:"column:user_created_at"`
 	UpdatedAt time.Time  `gorm:"column:user_updated_at"`
 	DeletedAt *time.Time `gorm:"column:user_deleted_at"`
 }
@@ -25,9 +26,19 @@ func (user *User) Default() interface{} {
 }
 
 func (user *User) User() *User {
-	model.DB().Where("user_id = ?", 1).Find(user)
+	//model.DB().Where("user_id = ?", 1).Find(user)
 	return user
 }
 
-func (user *User) GetObjArr()         {} //@todo     public function getObjArr(?array $filter_arr = [], ?array $sort_arr = null, ?int $limit = null, bool $with_trashed = false): Collection;
-func (user *User) GetObjArrPaginate() {} //@todo     public function getObjArrPaginate(int $per_page, ?array $filter_arr = [], ?array $sort_arr = null, bool $with_trashed = false): LengthAwarePaginator;
+func (user *User) ObjArr(filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (interface{}, error) {
+	var outArr []User
+	if err := model.Q(filterArr, sortArr, limit, withTrashed).Find(&outArr).Error; err != nil{
+		return nil, err
+	}
+	return outArr, nil
+}
+func (user *User) ObjArrPaginate(c *gin.Context, perPage uint, filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (pagination model.Pagination, err error) {
+	var outArr []User
+	filter := model.Model(*model.Q(filterArr, sortArr, limit, withTrashed))
+	return filter.Paginate(&outArr, c, perPage)
+}

@@ -9,20 +9,24 @@ import (
 	"totoval/app/models"
 )
 
-type Login struct{
+type Login struct {
 	controller.BaseController
 }
 
 func (l *Login) Login(c *gin.Context) {
 	// validate and assign requestData
 	var requestData requests.UserLogin
-	if !l.Validate(c, &requestData) {return}
+	if !l.Validate(c, &requestData) {
+		return
+	}
 
 	user := models.User{
-		Email: &requestData.Email,
+		Email:    &requestData.Email,
 		Password: &requestData.Password,
 	}
-	model.First(&user, false)
+	if err := model.First(&user, false); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "user doesn't exist or password error"})
+	}
 
 	c.JSON(http.StatusOK, gin.H{"data": user})
 	return

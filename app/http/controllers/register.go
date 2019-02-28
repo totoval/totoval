@@ -9,28 +9,32 @@ import (
 	"totoval/app/models"
 )
 
-type Register struct{
+type Register struct {
 	controller.BaseController
 }
 
 func (r *Register) Register(c *gin.Context) {
 	// validate and assign requestData
 	var requestData requests.UserRegister
-    if !r.Validate(c, &requestData) {return}
-
-	user := models.User{
-		Email: &requestData.Email,
-		Password: &requestData.Password,
-	}
-	/**
-	requests.UserRegister struct must contains models.User struct field
-	*/
-	if err := model.Create(&user); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
+	if !r.Validate(c, &requestData) {
 		return
 	}
 
-	//@todo user ID 没有更新
+	// determine if exist
+	user := models.User{
+		Email:    &requestData.Email,
+	}
+	if model.Exist(&user, true) {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "user has been registered before"})
+		return
+	}
+
+	// create user
+	user.Password = &requestData.Password //@todo password encryption
+	if err := model.Create(&user); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "user register failed"})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{"data": user})
 	return

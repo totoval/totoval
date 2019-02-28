@@ -37,12 +37,12 @@ type UserVerification struct {
 	DeletedAt                *time.Time `gorm:"column:uv_deleted_at"`
 }
 
-func (*UserVerification1548750785) Up(db *gorm.DB) (*gorm.DB) {
+func (*UserVerification1548750785) Up(db *gorm.DB) *gorm.DB {
 	db = db.CreateTable(&UserVerification{})
 	return db
 }
 
-func (*UserVerification1548750785) Down(db *gorm.DB) (*gorm.DB) {
+func (*UserVerification1548750785) Down(db *gorm.DB) *gorm.DB {
 	db = db.DropTableIfExists(&UserVerification{})
 	return db
 }

@@ -1,9 +1,7 @@
 package config
-
 import (
 	. "github.com/totoval/framework/config"
 )
-
 func init() {
 	auth := make(map[string]interface{})
 
