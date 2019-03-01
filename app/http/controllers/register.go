@@ -4,6 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/model"
+	"github.com/totoval/framework/resources/lang"
+	"github.com/totoval/framework/utils/jwt"
+	"github.com/totoval/framework/config"
 	"net/http"
 	"totoval/app/http/requests"
 	"totoval/app/models"
@@ -25,17 +28,28 @@ func (r *Register) Register(c *gin.Context) {
 		Email:    &requestData.Email,
 	}
 	if model.Exist(&user, true) {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "user has been registered before"})
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": lang.Translate("auth.register.failed_existed","en")})
 		return
 	}
 
 	// create user
 	user.Password = &requestData.Password //@todo password encryption
 	if err := model.Create(&user); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "user register failed"})
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "user register failed, system error"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": user})
+	// create jwt
+	newJwt := jwt.NewJWT(config.GetString("auth.sign_key"))
+	username := ""
+	if user.Name != nil{
+		username = *user.Name
+	}
+	if token, err := newJwt.CreateToken(string(*user.ID), username); err == nil{
+		c.JSON(http.StatusOK, gin.H{"token": token})
+		return
+	}
+
+	c.JSON(http.StatusUnprocessableEntity, gin.H{"error": "user register failed, token generate failed"})
 	return
 }

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/totoval/framework/helpers"
 	"github.com/totoval/framework/model"
 	"net/http"
 	"totoval/app/models"
@@ -10,8 +11,18 @@ import (
 type User struct{}
 
 func (*User) Info(c *gin.Context) {
-	mUser := &models.User{}
-	c.JSON(http.StatusOK, mUser.User())
+	userID := helpers.AuthClaimsID(c)
+	user := models.User{
+		ID: &userID,
+	}
+
+	if err := model.First(&user, false); err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
+		return
+	}
+	user.Password = nil
+	c.JSON(http.StatusOK, gin.H{"data":user})
+	return
 }
 
 func (*User) AllUser(c *gin.Context){
