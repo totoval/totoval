@@ -13,6 +13,10 @@
 - [x] Model Helper
 - [x] BigInt,BigFloat Support
 - [x] Orm: Mysql
+- [ ] User Token JWT Support
+- [ ] Model Getter/Setter
+- [ ] Error Handler
+- [ ] Language Package
 - [ ] Cache: Redis
 - [ ] Queue, Worker
 - [ ] Custom Command Line
