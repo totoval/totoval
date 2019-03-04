@@ -6,7 +6,6 @@ import (
 	"github.com/totoval/framework/helpers"
 	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/model"
-	"github.com/totoval/framework/resources/lang"
 	"github.com/totoval/framework/utils/jwt"
 	"net/http"
 	"totoval/app/http/requests"
@@ -24,12 +23,6 @@ func (r *Register) Register(c *gin.Context) {
 		return
 	}
 
-	if c.Query("locale") != ""{
-		lang.SetLocale(c, c.Query("locale"))
-	}
-	c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_existed")})
-	return
-
 	// determine if exist
 	user := models.User{
 		Email:    &requestData.Email,
@@ -42,7 +35,7 @@ func (r *Register) Register(c *gin.Context) {
 	// create user
 	user.Password = &requestData.Password //@todo password encryption
 	if err := model.Create(&user); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "user register failed, system error")})
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "auth.register.failed_system_error")})
 		return
 	}
 
@@ -57,6 +50,6 @@ func (r *Register) Register(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "user register failed, token generate failed")})
+	c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "auth.register.failed_token_generate_error")})
 	return
 }
