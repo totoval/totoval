@@ -6,6 +6,7 @@ import (
 	"github.com/totoval/framework/helpers"
 	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/model"
+	"github.com/totoval/framework/utils/crypt"
 	"github.com/totoval/framework/utils/jwt"
 	"net/http"
 	"totoval/app/http/requests"
@@ -33,7 +34,9 @@ func (r *Register) Register(c *gin.Context) {
 	}
 
 	// create user
-	user.Password = &requestData.Password //@todo password encryption
+	// encrypt password //@todo move to model setter later
+	encryptedPassword := crypt.Bcrypt(requestData.Password)
+	user.Password = &encryptedPassword
 	if err := model.Create(&user); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "auth.register.failed_system_error")})
 		return
