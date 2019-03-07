@@ -14,9 +14,13 @@
 - [x] BigInt,BigFloat Support
 - [x] Orm: Mysql
 - [x] User Token JWT Support
-- [ ] Password Entryption
+- [x] Random Code Generate and Verification
+- [x] Random String Helper
+- [x] Locale Middleware
+- [x] Gin Validator Upgrade to v9
+- [x] Password Encryption
 - [ ] Model Getter/Setter
-- [ ] User Email Validation via Notification
+- [x] User Email Validation via Notification
 - [ ] Error Handler
 - [x] Language Package
 - [ ] Cache: Redis

@@ -186,6 +186,8 @@ github.com/totoval/framework v0.1.0-nightly.1551783792/go.mod h1:xHskLPAIoSCOohS
 github.com/totoval/framework v0.1.0-nightly.1551785616/go.mod h1:xHskLPAIoSCOohSlggNUpCYVORuSOaN2Y8x0Wy7FjXI=
 github.com/totoval/framework v0.1.0-nightly.1551786206/go.mod h1:xHskLPAIoSCOohSlggNUpCYVORuSOaN2Y8x0Wy7FjXI=
 github.com/totoval/framework v0.1.0-nightly.1551924764/go.mod h1:xHskLPAIoSCOohSlggNUpCYVORuSOaN2Y8x0Wy7FjXI=
+github.com/totoval/framework v0.1.0-nightly.1551925877/go.mod h1:xHskLPAIoSCOohSlggNUpCYVORuSOaN2Y8x0Wy7FjXI=
+github.com/totoval/framework v0.1.0-nightly.1551929293/go.mod h1:xHskLPAIoSCOohSlggNUpCYVORuSOaN2Y8x0Wy7FjXI=
 github.com/totoval/framework v0.1.0/go.mod h1:xdEciCPQcLiP0dmmqD9pkjS/YiqIZn/HqlMsHyP/vhg=
 github.com/ugorji/go v1.1.2 h1:JON3E2/GPW2iDNGoSAusl1KDf5TRQ8k8q7Tp097pZGs=
 github.com/ugorji/go v1.1.2/go.mod h1:hnLbHMwcvSihnDhEfx2/BzKp2xb0Y+ErdfYcrs9tkJQ=
