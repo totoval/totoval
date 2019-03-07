@@ -12,7 +12,7 @@ type V1 struct {
 }
 
 func (v1 *V1) Register(router *gin.Engine) {
-	version := router.Group(v1.Prefix, middleware.Locale())
+	version := router.Group(v1.Prefix)
 	{
 		v1.noAuth(version)
 		v1.auth(version)

@@ -1,3 +1,4 @@
 .idea
 framework
 .env.json
+go.sum
