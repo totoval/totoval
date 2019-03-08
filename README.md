@@ -19,6 +19,7 @@
 - [x] Locale Middleware
 - [x] Gin Validator Upgrade to v9
 - [x] Password Encryption
+- [x] Validation Error Multi-Language Support
 - [ ] Model Getter/Setter
 - [x] User Email Validation via Notification
 - [ ] Error Handler
