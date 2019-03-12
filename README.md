@@ -1,7 +1,7 @@
 # totoval
 
 **An artisan API web-framework written in go.**  
-*Inspired by Laravel*  
+*Inspired by Laravel
 
 ## 0x01 Roadmap
 - [x] Env Configuration
@@ -20,6 +20,7 @@
 - [x] Gin Validator Upgrade to v9
 - [x] Password Encryption
 - [x] Validation Error Multi-Language Support
+- [x] Request Logger Middleware
 - [ ] Model Getter/Setter
 - [x] User Email Validation via Notification
 - [ ] Error Handler

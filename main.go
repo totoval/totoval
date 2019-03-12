@@ -24,12 +24,14 @@ func main() {
 
 	// upgrade gin validator v8 to v9
 	binding.Validator = new(defaultValidator)
-	
+
 	r := gin.Default()
 
 	r.Use(gin.Logger())
 
 	r.Use(gin.Recovery())
+
+	//r.Use(middleware.RequestLogger())
 
 	r.Use(middleware.Locale())
 
