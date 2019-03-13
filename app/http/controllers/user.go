@@ -3,12 +3,15 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/totoval/framework/helpers"
+	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/model"
 	"net/http"
 	"totoval/app/models"
 )
 
-type User struct{}
+type User struct{
+	controller.BaseController
+}
 
 func (*User) Info(c *gin.Context) {
 	userID := helpers.AuthClaimsID(c)
