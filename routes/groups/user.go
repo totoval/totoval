@@ -17,6 +17,7 @@ func (ug *UserGroup) Register(group *gin.RouterGroup) {
 
 		newGroup.GET("/update", ug.UserController.Update)
 		newGroup.GET("/delete", ug.UserController.Delete)
+		newGroup.GET("/delete-transaction", ug.UserController.DeleteTransaction)
 		newGroup.GET("/restore", ug.UserController.Restore)
 	}
 }

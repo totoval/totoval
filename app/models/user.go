@@ -16,6 +16,7 @@ type User struct {
 	CreatedAt *time.Time `gorm:"column:user_created_at"`
 	UpdatedAt time.Time  `gorm:"column:user_updated_at"`
 	DeletedAt *time.Time `gorm:"column:user_deleted_at"`
+	model.BaseModel
 }
 
 func (user *User) Default() interface{} {
@@ -32,13 +33,13 @@ func (user *User) User() *User {
 
 func (user *User) ObjArr(filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (interface{}, error) {
 	var outArr []User
-	if err := model.Q(filterArr, sortArr, limit, withTrashed).Find(&outArr).Error; err != nil{
+	if err := model.H.Q(filterArr, sortArr, limit, withTrashed).Find(&outArr).Error; err != nil{
 		return nil, err
 	}
 	return outArr, nil
 }
 func (user *User) ObjArrPaginate(c *gin.Context, perPage uint, filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (pagination model.Pagination, err error) {
 	var outArr []User
-	filter := model.Model(*model.Q(filterArr, sortArr, limit, withTrashed))
+	filter := model.Model(*model.H.Q(filterArr, sortArr, limit, withTrashed))
 	return filter.Paginate(&outArr, c, perPage)
 }

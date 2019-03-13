@@ -28,7 +28,7 @@ func (r *Register) Register(c *gin.Context) {
 	user := models.User{
 		Email:    &requestData.Email,
 	}
-	if model.Exist(&user, true) {
+	if model.H.Exist(&user, true) {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_existed")})
 		return
 	}
@@ -37,7 +37,7 @@ func (r *Register) Register(c *gin.Context) {
 	// encrypt password //@todo move to model setter later
 	encryptedPassword := crypt.Bcrypt(requestData.Password)
 	user.Password = &encryptedPassword
-	if err := model.Create(&user); err != nil {
+	if err := model.H.Create(&user); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "auth.register.failed_system_error")})
 		return
 	}

@@ -16,7 +16,7 @@ func (*User) Info(c *gin.Context) {
 		ID: &userID,
 	}
 
-	if err := model.First(&user, false); err != nil {
+	if err := model.H.First(&user, false); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
 		return
 	}
@@ -53,7 +53,7 @@ func (*User) Update(c *gin.Context) {
 	user := models.User{
 		ID: &id,
 	}
-	if err := model.First(&user, false); err != nil{
+	if err := model.H.First(&user, false); err != nil{
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
 		return
 	}
@@ -62,7 +62,7 @@ func (*User) Update(c *gin.Context) {
 	modifyUser := models.User{
 		Name: &name,
 	}
-	if err := model.Save(&user, modifyUser); err != nil {
+	if err := model.H.Save(&user, modifyUser); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err})
 		return
 	}
@@ -77,13 +77,36 @@ func (*User) Update(c *gin.Context) {
 func (*User) Delete(c *gin.Context) {
 	var id uint
 	id = 14
-	modifyUser := models.User{
+	user := models.User{
 		ID: &id,
 	}
-	if err := model.Delete(&modifyUser, false); err != nil {
+	if err := model.H.Delete(&user, false); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err})
 		return
 	}
+	c.JSON(http.StatusOK, gin.H{"data": true})
+	return
+}
+func (*User) DeleteTransaction(c *gin.Context) {
+	defer func(){ // handle transaction error
+		if err := recover(); err != nil{
+			c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.(error).Error()})
+			return
+		}
+	}()
+
+	var id uint
+	id = 14
+	user := models.User{
+		ID: &id,
+	}
+	model.Transaction(func(h *model.Helper) {
+		user.SetTX(h.DB()) // important
+		if err := model.H.Delete(&user, false); err != nil {
+			panic(err)
+		}
+	}, 1)
+
 	c.JSON(http.StatusOK, gin.H{"data": true})
 	return
 }
@@ -94,7 +117,7 @@ func (*User) Restore(c *gin.Context) {
 		ID: &id,
 	}
 
-	if err := model.Restore(&modifyUser); err != nil {
+	if err := model.H.Restore(&modifyUser); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err})
 		return
 	}

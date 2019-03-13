@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/totoval/framework/model"
 	"time"
 )
 
@@ -24,6 +25,7 @@ type UserVerification struct {
 	CreatedAt                time.Time  `gorm:"column:uv_created_at"`
 	UpdatedAt                time.Time  `gorm:"column:uv_updated_at"`
 	DeletedAt                *time.Time `gorm:"column:uv_deleted_at"`
+	model.BaseModel
 }
 
 func (*UserVerification) ObjArr()         {} //@todo     public function getObjArr(?array $filter_arr = [], ?array $sort_arr = null, ?int $limit = null, bool $with_trashed = false): Collection;
