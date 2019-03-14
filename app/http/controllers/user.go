@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/totoval/framework/helpers"
 	"github.com/totoval/framework/http/controller"
+	"github.com/totoval/framework/http/middleware"
 	"github.com/totoval/framework/model"
 	"net/http"
 	"totoval/app/models"
@@ -13,8 +13,20 @@ type User struct{
 	controller.BaseController
 }
 
+func (*User)LogOut(c *gin.Context){
+	if err := middleware.Revoke(c); err != nil{
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{})
+	return
+}
+
 func (*User) Info(c *gin.Context) {
-	userID := helpers.AuthClaimsID(c)
+	userID, isAbort := middleware.AuthClaimsID(c)
+	if isAbort {
+		return
+	}
 	user := models.User{
 		ID: &userID,
 	}
