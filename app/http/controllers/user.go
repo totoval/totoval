@@ -117,7 +117,7 @@ func (*User) DeleteTransaction(c *gin.Context) {
 	}
 	model.Transaction(func(h *model.Helper) {
 		user.SetTX(h.DB()) // important
-		if err := model.H.Delete(&user, false); err != nil {
+		if err := h.Delete(&user, false); err != nil {
 			panic(err)
 		}
 	}, 1)
