@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/totoval/framework/config"
 	"github.com/totoval/framework/helpers"
+	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/http/controller"
-	"github.com/totoval/framework/model"
 	"github.com/totoval/framework/utils/crypt"
 	"github.com/totoval/framework/utils/jwt"
 	"net/http"
@@ -27,7 +27,7 @@ func (l *Login) Login(c *gin.Context) {
 	user := models.User{
 		Email:    &requestData.Email,
 	}
-	if err := model.H.First(&user, false); err != nil {
+	if err := m.H().First(&user, false); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "auth.login.failed_not_exist")})
 		return
 	}

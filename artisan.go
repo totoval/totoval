@@ -3,7 +3,8 @@ package main
 import (
 	"github.com/totoval/framework/cmd"
 	"github.com/totoval/framework/cmd/groups"
-	"github.com/totoval/framework/model"
+	"github.com/totoval/framework/database"
+	"github.com/totoval/framework/helpers/m"
 	"github.com/urfave/cli"
 	"log"
 	"os"
@@ -13,7 +14,8 @@ import (
 
 func init() {
 	config.Initialize()
-	model.Initialize()
+	database.Initialize()
+	m.Initialize()
 }
 
 func main() {

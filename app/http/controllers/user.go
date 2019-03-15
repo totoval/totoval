@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/http/middleware"
 	"github.com/totoval/framework/model"
@@ -31,7 +32,7 @@ func (*User) Info(c *gin.Context) {
 		ID: &userID,
 	}
 
-	if err := model.H.First(&user, false); err != nil {
+	if err := m.H().First(&user, false); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
 		return
 	}
@@ -68,7 +69,7 @@ func (*User) Update(c *gin.Context) {
 	user := models.User{
 		ID: &id,
 	}
-	if err := model.H.First(&user, false); err != nil{
+	if err := m.H().First(&user, false); err != nil{
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
 		return
 	}
@@ -77,14 +78,14 @@ func (*User) Update(c *gin.Context) {
 	modifyUser := models.User{
 		Name: &name,
 	}
-	if err := model.H.Save(&user, modifyUser); err != nil {
+	if err := m.H().Save(&user, modifyUser); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data":user})
 	return
 
-	//model.Transaction(func() {
+	//m.Transaction(func() {
 	//	fmt.Println(id)
 	//	panic(123)
 	//}, 3)
@@ -95,7 +96,7 @@ func (*User) Delete(c *gin.Context) {
 	user := models.User{
 		ID: &id,
 	}
-	if err := model.H.Delete(&user, false); err != nil {
+	if err := m.H().Delete(&user, false); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err})
 		return
 	}
@@ -115,7 +116,7 @@ func (*User) DeleteTransaction(c *gin.Context) {
 	user := models.User{
 		ID: &id,
 	}
-	model.Transaction(func(h *model.Helper) {
+	m.Transaction(func(h *m.Helper) {
 		user.SetTX(h.DB()) // important
 		if err := h.Delete(&user, false); err != nil {
 			panic(err)
@@ -132,7 +133,7 @@ func (*User) Restore(c *gin.Context) {
 		ID: &id,
 	}
 
-	if err := model.H.Restore(&modifyUser); err != nil {
+	if err := m.H().Restore(&modifyUser); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err})
 		return
 	}

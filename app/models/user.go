@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/model"
 	"time"
 )
@@ -33,13 +34,13 @@ func (user *User) User() *User {
 
 func (user *User) ObjArr(filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (interface{}, error) {
 	var outArr []User
-	if err := model.H.Q(filterArr, sortArr, limit, withTrashed).Find(&outArr).Error; err != nil{
+	if err := m.H().Q(filterArr, sortArr, limit, withTrashed).Find(&outArr).Error; err != nil{
 		return nil, err
 	}
 	return outArr, nil
 }
 func (user *User) ObjArrPaginate(c *gin.Context, perPage uint, filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (pagination model.Pagination, err error) {
 	var outArr []User
-	filter := model.Model(*model.H.Q(filterArr, sortArr, limit, withTrashed))
+	filter := model.Model(*m.H().Q(filterArr, sortArr, limit, withTrashed))
 	return filter.Paginate(&outArr, c, perPage)
 }
