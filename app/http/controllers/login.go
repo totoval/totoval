@@ -25,25 +25,25 @@ func (l *Login) Login(c *gin.Context) {
 	}
 
 	user := models.User{
-		Email:    &requestData.Email,
+		Email: &requestData.Email,
 	}
 	if err := m.H().First(&user, false); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "auth.login.failed_not_exist")})
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.login.failed_not_exist")})
 		return
 	}
 
 	if !crypt.BcryptCheck(*user.Password, requestData.Password) {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "auth.login.failed_wrong_password")})
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.login.failed_wrong_password")})
 		return
 	}
 
 	// create jwt
 	newJwt := jwt.NewJWT(config.GetString("auth.sign_key"))
 	username := ""
-	if user.Name != nil{
+	if user.Name != nil {
 		username = *user.Name
 	}
-	if token, err := newJwt.CreateToken(string(*user.ID), username); err == nil{
+	if token, err := newJwt.CreateToken(string(*user.ID), username); err == nil {
 		c.JSON(http.StatusOK, gin.H{"token": token})
 		return
 	}

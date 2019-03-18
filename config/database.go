@@ -1,7 +1,9 @@
 package config
+
 import (
 	. "github.com/totoval/framework/config"
 )
+
 func init() {
 	database := make(map[string]interface{})
 

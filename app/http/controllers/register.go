@@ -26,7 +26,7 @@ func (r *Register) Register(c *gin.Context) {
 
 	// determine if exist
 	user := models.User{
-		Email:    &requestData.Email,
+		Email: &requestData.Email,
 	}
 	if m.H().Exist(&user, true) {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_existed")})
@@ -38,21 +38,21 @@ func (r *Register) Register(c *gin.Context) {
 	encryptedPassword := crypt.Bcrypt(requestData.Password)
 	user.Password = &encryptedPassword
 	if err := m.H().Create(&user); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "auth.register.failed_system_error")})
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_system_error")})
 		return
 	}
 
 	// create jwt
 	newJwt := jwt.NewJWT(config.GetString("auth.sign_key"))
 	username := ""
-	if user.Name != nil{
+	if user.Name != nil {
 		username = *user.Name
 	}
-	if token, err := newJwt.CreateToken(string(*user.ID), username); err == nil{
+	if token, err := newJwt.CreateToken(string(*user.ID), username); err == nil {
 		c.JSON(http.StatusOK, gin.H{"token": token})
 		return
 	}
 
-	c.JSON(http.StatusUnprocessableEntity, gin.H{"error":  helpers.L(c, "auth.register.failed_token_generate_error")})
+	c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_token_generate_error")})
 	return
 }

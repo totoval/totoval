@@ -34,7 +34,7 @@ func (user *User) User() *User {
 
 func (user *User) ObjArr(filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (interface{}, error) {
 	var outArr []User
-	if err := m.H().Q(filterArr, sortArr, limit, withTrashed).Find(&outArr).Error; err != nil{
+	if err := m.H().Q(filterArr, sortArr, limit, withTrashed).Find(&outArr).Error; err != nil {
 		return nil, err
 	}
 	return outArr, nil

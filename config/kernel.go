@@ -9,7 +9,7 @@ func Initialize() {
 	setAppMode()
 }
 
-func setAppMode(){
+func setAppMode() {
 	if config.GetString("app.env") == "production" {
 		gin.SetMode(gin.ReleaseMode)
 	}

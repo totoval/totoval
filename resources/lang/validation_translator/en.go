@@ -20,21 +20,21 @@ func init() {
 }
 
 type En struct {
-	locale string
+	locale            string
 	localesTranslator locales.Translator
 }
 
-func (e *En)Locale() string {
+func (e *En) Locale() string {
 	return e.locale
 }
 
-func (e *En)LocalesTranslator() locales.Translator {
+func (e *En) LocalesTranslator() locales.Translator {
 	return e.localesTranslator
 }
 
 // RegisterDefaultTranslations registers a set of default translations
 // for all built in tag's in validator; you may add your own as desired.
-func (e *En)RegisterDefaultTranslations(v *validator.Validate, trans ut.Translator) (err error) {
+func (e *En) RegisterDefaultTranslations(v *validator.Validate, trans ut.Translator) (err error) {
 
 	translations := []struct {
 		tag             string
@@ -1363,7 +1363,7 @@ func (e *En)RegisterDefaultTranslations(v *validator.Validate, trans ut.Translat
 	return
 }
 
-func (e *En)registrationFunc(tag string, translation string, override bool) validator.RegisterTranslationsFunc {
+func (e *En) registrationFunc(tag string, translation string, override bool) validator.RegisterTranslationsFunc {
 
 	return func(ut ut.Translator) (err error) {
 
@@ -1377,7 +1377,7 @@ func (e *En)registrationFunc(tag string, translation string, override bool) vali
 
 }
 
-func (e *En)translateFunc(ut ut.Translator, fe validator.FieldError) string {
+func (e *En) translateFunc(ut ut.Translator, fe validator.FieldError) string {
 
 	t, err := ut.T(fe.Tag(), fe.Field())
 	if err != nil {

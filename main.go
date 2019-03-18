@@ -42,9 +42,6 @@ func main() {
 	r.Run(":" + c.GetString("app.port"))
 }
 
-
-
-
 // gin validator v8 to v9
 type defaultValidator struct {
 	once     sync.Once
