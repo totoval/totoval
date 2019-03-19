@@ -11,7 +11,7 @@ import (
 	"reflect"
 	"sync"
 	"totoval/config"
-	"totoval/resources/lang/validation_translator"
+	"totoval/resources/lang"
 	"totoval/routes"
 )
 
@@ -19,7 +19,7 @@ func init() {
 	config.Initialize()
 	database.Initialize()
 	m.Initialize()
-	validation_translator.Initialize() // an translation must contains resources/lang/xx.json file (then a resources/lang/validation_translator/xx.go)
+	lang.Initialize() // an translation must contains resources/lang/xx.json file (then a resources/lang/validation_translator/xx.go)
 }
 
 func main() {
@@ -29,17 +29,23 @@ func main() {
 
 	r := gin.Default()
 
-	r.Use(gin.Logger())
+	if c.GetString("app.env") == "production" {
+		r.Use(gin.Logger())
 
-	r.Use(gin.Recovery())
+		r.Use(gin.Recovery())
+	}
 
-	//r.Use(middleware.RequestLogger())
+	if c.GetBool("app.debug") {
+		r.Use(middleware.RequestLogger())
+	}
 
 	r.Use(middleware.Locale())
 
 	routes.Register(r)
 
-	r.Run(":" + c.GetString("app.port"))
+	if err := r.Run(":" + c.GetString("app.port")); err != nil{
+		panic(err)
+	}
 }
 
 // gin validator v8 to v9
