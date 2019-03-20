@@ -20,7 +20,7 @@ type Register struct {
 func (r *Register) Register(c *gin.Context) {
 	// validate and assign requestData
 	var requestData requests.UserRegister
-	if !r.Validate(c, &requestData) {
+	if !r.Validate(c, &requestData, true) {
 		return
 	}
 

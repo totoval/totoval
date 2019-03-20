@@ -1,6 +1,10 @@
 package lang
 
-import "github.com/totoval/framework/resources/lang"
+import (
+    "github.com/totoval/framework/helpers/locale"
+
+    "github.com/totoval/framework/resources/lang"
+)
 
 func init() {
     validationTranslation := lang.ValidationTranslation{
@@ -123,6 +127,10 @@ func init() {
                 Other: "items",
             },
         },
+
+        FieldTranslation: lang.ValidationFieldTranslation{
+            "Email": "邮箱",
+        },
     }
     customTranslation := lang.CustomTranslation{
         "auth.register.failed_existed": "user register failed, user has been registered before",
@@ -133,6 +141,6 @@ func init() {
         "auth.login.failed_wrong_password": "user login failed, user password incorrect",
         "auth.login.failed_token_generate_error": "user login failed, token generate failed",
     }
-    lang.AddLocale("zh", &validationTranslation, &customTranslation)
+    locale.AddLocale("zh", &customTranslation, &validationTranslation)
 }
 
