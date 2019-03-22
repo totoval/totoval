@@ -1,6 +1,6 @@
-# totoval
+# totoval framework
 
-**An artisan API web-framework written in go.**  
+**An artisan API web-framework written in go.**
 *Inspired by Laravel
 
 ## 0x01 Roadmap
@@ -25,6 +25,7 @@
 - [x] User Email Validation via Notification
 - [ ] Error Handler
 - [x] Language Package
+- [x] Cache: Memory
 - [ ] Cache: Redis
 - [ ] Queue, Worker
 - [ ] Events
