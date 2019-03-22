@@ -1,15 +1,19 @@
 package main
 
 import (
+	"reflect"
+	"sync"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"gopkg.in/go-playground/validator.v9"
+
+	"github.com/totoval/framework/cache"
+
 	c "github.com/totoval/framework/config"
 	"github.com/totoval/framework/database"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/http/middleware"
-	"gopkg.in/go-playground/validator.v9"
-	"reflect"
-	"sync"
 	"totoval/config"
 	"totoval/resources/lang"
 	"totoval/routes"
@@ -17,6 +21,7 @@ import (
 
 func init() {
 	config.Initialize()
+	cache.Initialize()
 	database.Initialize()
 	m.Initialize()
 	lang.Initialize() // an translation must contains resources/lang/xx.json file (then a resources/lang/validation_translator/xx.go)
