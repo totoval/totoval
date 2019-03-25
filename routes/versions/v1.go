@@ -20,7 +20,11 @@ func (v1 *V1) Register(router *gin.Engine) {
 }
 
 func (v1 *V1) noAuth(group *gin.RouterGroup) {
-	route.RegisterRouteGroup(&groups.AuthGroup{}, group)
+	noAuthGroup := group.Group("")
+
+	{
+		route.RegisterRouteGroup(&groups.AuthGroup{}, noAuthGroup)
+	}
 }
 
 func (v1 *V1) auth(group *gin.RouterGroup) {
