@@ -1,9 +1,16 @@
-# totoval framework
+# Totoval
+![GitHub last commit](https://img.shields.io/github/last-commit/totoval/totoval.svg)
+![Travis (.org)](https://img.shields.io/travis/totoval/totoval.svg)
+![GitHub top language](https://img.shields.io/github/languages/top/totoval/totoval.svg)
+![Inspired by Laravel](https://img.shields.io/badge/Inspired%20by-Laravel-red.svg)
+![GitHub](https://img.shields.io/github/license/totoval/totoval.svg)
 
-**An artisan API web-framework written in go.**
-*Inspired by Laravel
+## About Totoval
+Totoval is an API web framework that helps Golang engineers build a performance-boiled project quickly, easily, and securely. It is more like a scaffolding, respecting Golang's programming philosophy, supported by a number of highly acclaimed, high-performance core components, as well as many easy-to-use components to quickly adapt to more business scenarios. We also believe that development must be an enjoyable and creative experience. Totoval frees developers from the painful coding process. Do less, think more.
 
-## 0x01 Roadmap
+
+
+## Roadmap
 - [x] Env Configuration
 - [x] Groupable Router
 - [x] Request Middleware
@@ -40,7 +47,7 @@
 - [ ] Website && Document
 - [ ] CI
 
-## 0x02 Thanks
+## Thanks
 * gin
 * gorm
 * validator.v9
@@ -48,3 +55,5 @@
 * big
 * jwt
 * i18n
+* urfave/cli
+* fatih/color
