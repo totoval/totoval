@@ -48,7 +48,7 @@ func main() {
 
 	routes.Register(r)
 
-	if err := r.Run(":" + c.GetString("app.port")); err != nil{
+	if err := r.Run(":" + c.GetString("app.port")); err != nil {
 		panic(err)
 	}
 }
