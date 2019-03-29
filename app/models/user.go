@@ -20,6 +20,10 @@ type User struct {
 	model.BaseModel
 }
 
+func (user *User) TableName() string {
+	return user.SetTableName("users")
+}
+
 func (user *User) Default() interface{} {
 	name := ""
 	return User{
