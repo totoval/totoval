@@ -121,7 +121,6 @@ func init() {
 		BtcAddrBech32: "{0}必须是一个有效的BTC Bech32地址",
 		EthAddr:       "{0}必须是一个有效的ETH地址",
 
-
 		PluralRuleMap: map[string]lang.PluralRule{
 			"character": {
 				One:   "字符",
@@ -133,7 +132,7 @@ func init() {
 			},
 		},
 	}
-		customTranslation := lang.CustomTranslation{
+	customTranslation := lang.CustomTranslation{
 		"auth.register.failed_existed":              "user register failed, user has been registered before",
 		"auth.register.failed_system_error":         "user register failed, system error",
 		"auth.register.failed_token_generate_error": "user register failed, token generate failed",

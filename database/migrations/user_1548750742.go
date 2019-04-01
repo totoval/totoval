@@ -17,7 +17,7 @@ type User struct {
 	//Telephone  string     `gorm:"column:user_telephone;type:varchar(100);unique_index"`
 	Password string `gorm:"column:user_password;type:varchar(100)"`
 	//VerifiedAt time.Time  `gorm:"column:user_verified_at"`
-	CreatedAt *time.Time  `gorm:"column:user_created_at"`
+	CreatedAt *time.Time `gorm:"column:user_created_at"`
 	UpdatedAt time.Time  `gorm:"column:user_updated_at"`
 	DeletedAt *time.Time `gorm:"column:user_deleted_at"`
 }
