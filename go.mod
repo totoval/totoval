@@ -6,7 +6,7 @@ require (
 	github.com/go-playground/locales v0.12.1
 	github.com/go-playground/universal-translator v0.16.0
 	github.com/jinzhu/gorm v1.9.2
-	github.com/totoval/framework v0.3.2
+	github.com/totoval/framework v0.3.3
 	github.com/ugorji/go/codec v0.0.0-20190204201341-e444a5086c43 // indirect
 	github.com/urfave/cli v1.20.0
 	golang.org/x/net v0.0.0-20190213061140-3a22650c66bd // indirect

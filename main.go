@@ -1,8 +1,10 @@
 package main
 
 import (
+	"net/http"
 	"reflect"
 	"sync"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -48,7 +50,16 @@ func main() {
 
 	routes.Register(r)
 
-	if err := r.Run(":" + c.GetString("app.port")); err != nil {
+
+	s := &http.Server{
+		Addr:           ":" + c.GetString("app.port"),
+		Handler:        r,
+		ReadTimeout:    time.Duration(c.GetInt64("app.read_timeout_seconds")) * time.Second,
+		WriteTimeout:   time.Duration(c.GetInt64("app.write_timeout_seconds")) * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
+
+	if err := s.ListenAndServe(); err != nil {
 		panic(err)
 	}
 }
