@@ -2,6 +2,8 @@ package models
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/totoval/framework/helpers/ptr"
+
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/model"
 	"time"
@@ -25,9 +27,8 @@ func (user *User) TableName() string {
 }
 
 func (user *User) Default() interface{} {
-	name := ""
 	return User{
-		Name: &name,
+		Name: ptr.String(""),
 	}
 }
 
