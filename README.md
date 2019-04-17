@@ -31,6 +31,7 @@ Totoval is an API web framework that helps Golang engineers build a performance-
 - [x] Request Logger Middleware
 - [ ] Model Getter/Setter
 - [x] User Email Validation via Notification
+- [x] Views Support
 - [ ] Error Handler
 - [x] Language Package
 - [x] Cache: Memory

@@ -62,51 +62,82 @@ func main() {
 	if err := s.ListenAndServe(); err != nil {
 		panic(err)
 	}
+    // upgrade gin validator v8 to v9
+    binding.Validator = new(defaultValidator)
+    r := gin.Default()
+
+    if c.GetString("app.env") == "production" {
+        r.Use(gin.Logger())
+
+        r.Use(gin.Recovery())
+    }
+
+    if c.GetBool("app.debug") {
+        r.Use(middleware.RequestLogger())
+    }
+
+    views.Initialize(r)
+
+    r.Use(middleware.Locale())
+
+    routes.Register(r)
+
+    s := &http.Server{
+        Addr:           ":" + c.GetString("app.port"),
+        Handler:        r,
+        ReadTimeout:    time.Duration(c.GetInt64("app.read_timeout_seconds")) * time.Second,
+        WriteTimeout:   time.Duration(c.GetInt64("app.write_timeout_seconds")) * time.Second,
+        MaxHeaderBytes: 1 << 20,
+    }
+
+    if err := s.ListenAndServe(); err != nil {
+        panic(err)
+    }
 }
 
 // gin validator v8 to v9
 type defaultValidator struct {
-	once     sync.Once
-	validate *validator.Validate
+    once     sync.Once
+    validate *validator.Validate
 }
 
 var _ binding.StructValidator = &defaultValidator{}
 
 func (v *defaultValidator) ValidateStruct(obj interface{}) error {
 
-	if kindOfData(obj) == reflect.Struct {
+    if kindOfData(obj) == reflect.Struct {
 
-		v.lazyinit()
+        v.lazyinit()
 
-		if err := v.validate.Struct(obj); err != nil {
-			return error(err)
-		}
-	}
+        if err := v.validate.Struct(obj); err != nil {
+            return error(err)
+        }
+    }
 
-	return nil
+    return nil
 }
 
 func (v *defaultValidator) Engine() interface{} {
-	v.lazyinit()
-	return v.validate
+    v.lazyinit()
+    return v.validate
 }
 
 func (v *defaultValidator) lazyinit() {
-	v.once.Do(func() {
-		v.validate = validator.New()
-		v.validate.SetTagName("binding")
+    v.once.Do(func() {
+        v.validate = validator.New()
+        v.validate.SetTagName("binding")
 
-		// add any custom validations etc. here
-	})
+        // add any custom validations etc. here
+    })
 }
 
 func kindOfData(data interface{}) reflect.Kind {
 
-	value := reflect.ValueOf(data)
-	valueType := value.Kind()
+    value := reflect.ValueOf(data)
+    valueType := value.Kind()
 
-	if valueType == reflect.Ptr {
-		valueType = value.Elem().Kind()
-	}
-	return valueType
+    if valueType == reflect.Ptr {
+        valueType = value.Elem().Kind()
+    }
+    return valueType
 }
