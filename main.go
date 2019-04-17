@@ -19,6 +19,7 @@ import (
 	"totoval/config"
 	"totoval/resources/lang"
 	"totoval/routes"
+	"totoval/resources/views"
 )
 
 func init() {
@@ -50,6 +51,7 @@ func main() {
 
 	routes.Register(r)
 
+        views.Initialize(r)
 
 	s := &http.Server{
 		Addr:           ":" + c.GetString("app.port"),
@@ -62,37 +64,6 @@ func main() {
 	if err := s.ListenAndServe(); err != nil {
 		panic(err)
 	}
-    // upgrade gin validator v8 to v9
-    binding.Validator = new(defaultValidator)
-    r := gin.Default()
-
-    if c.GetString("app.env") == "production" {
-        r.Use(gin.Logger())
-
-        r.Use(gin.Recovery())
-    }
-
-    if c.GetBool("app.debug") {
-        r.Use(middleware.RequestLogger())
-    }
-
-    views.Initialize(r)
-
-    r.Use(middleware.Locale())
-
-    routes.Register(r)
-
-    s := &http.Server{
-        Addr:           ":" + c.GetString("app.port"),
-        Handler:        r,
-        ReadTimeout:    time.Duration(c.GetInt64("app.read_timeout_seconds")) * time.Second,
-        WriteTimeout:   time.Duration(c.GetInt64("app.write_timeout_seconds")) * time.Second,
-        MaxHeaderBytes: 1 << 20,
-    }
-
-    if err := s.ListenAndServe(); err != nil {
-        panic(err)
-    }
 }
 
 // gin validator v8 to v9
