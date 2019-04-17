@@ -13,11 +13,11 @@ func init() {
 }
 
 type User struct {
-    ID    uint   `gorm:"column:user_id;primary_key;auto_increment"`
-    Name  string `gorm:"column:user_name;type:varchar(100)"`
-    Email string `gorm:"column:user_email;type:varchar(100);unique_index"`
-    //Telephone  string     `gorm:"column:user_telephone;type:varchar(100);unique_index"`
-    Password string `gorm:"column:user_password;type:varchar(100)"`
+    ID    *uint   `gorm:"column:user_id;primary_key;auto_increment"`
+    Name  *string `gorm:"column:user_name;type:varchar(100)"`
+    Email *string `gorm:"column:user_email;type:varchar(100);unique_index"`
+    //Telephone  *string     `gorm:"column:user_telephone;type:varchar(100);unique_index"`
+    Password *string `gorm:"column:user_password;type:varchar(100)"`
     //VerifiedAt time.Time  `gorm:"column:user_verified_at"`
     CreatedAt *time.Time `gorm:"column:user_created_at"`
     UpdatedAt time.Time  `gorm:"column:user_updated_at"`
