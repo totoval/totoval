@@ -1,11 +1,11 @@
 package views
 
 import (
-    "github.com/totoval/framework/view"
+	"github.com/totoval/framework/view"
 )
 
 func init() {
-    view.AddView("user_affiliation.nodes", `
+	view.AddView("user_affiliation.nodes", `
 {{define "user_affiliation.nodes"}}
 <!DOCTYPE html>
 <html lang="en">

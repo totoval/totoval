@@ -1,115 +1,115 @@
 package main
 
 import (
-    "net/http"
-    "reflect"
-    "sync"
-    "time"
+	"net/http"
+	"reflect"
+	"sync"
+	"time"
 
-    "github.com/gin-gonic/gin"
-    "github.com/gin-gonic/gin/binding"
-    "gopkg.in/go-playground/validator.v9"
+	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"gopkg.in/go-playground/validator.v9"
 
-    "github.com/totoval/framework/cache"
+	"github.com/totoval/framework/cache"
 
-    c "github.com/totoval/framework/config"
-    "github.com/totoval/framework/database"
-    "github.com/totoval/framework/helpers/m"
-    "github.com/totoval/framework/http/middleware"
+	c "github.com/totoval/framework/config"
+	"github.com/totoval/framework/database"
+	"github.com/totoval/framework/helpers/m"
+	"github.com/totoval/framework/http/middleware"
 
-    "totoval/config"
-    "totoval/resources/lang"
-    "totoval/resources/views"
-    "totoval/routes"
+	"totoval/config"
+	"totoval/resources/lang"
+	"totoval/resources/views"
+	"totoval/routes"
 )
 
 func init() {
-    config.Initialize()
-    cache.Initialize()
-    database.Initialize()
-    m.Initialize()
-    lang.Initialize() // an translation must contains resources/lang/xx.json file (then a resources/lang/validation_translator/xx.go)
+	config.Initialize()
+	cache.Initialize()
+	database.Initialize()
+	m.Initialize()
+	lang.Initialize() // an translation must contains resources/lang/xx.json file (then a resources/lang/validation_translator/xx.go)
 }
 
 func main() {
 
-    // upgrade gin validator v8 to v9
-    binding.Validator = new(defaultValidator)
+	// upgrade gin validator v8 to v9
+	binding.Validator = new(defaultValidator)
 
-    r := gin.Default()
+	r := gin.Default()
 
-    if c.GetString("app.env") == "production" {
-        r.Use(gin.Logger())
+	if c.GetString("app.env") == "production" {
+		r.Use(gin.Logger())
 
-        r.Use(gin.Recovery())
-    }
+		r.Use(gin.Recovery())
+	}
 
-    if c.GetBool("app.debug") {
-        r.Use(middleware.RequestLogger())
-    }
+	if c.GetBool("app.debug") {
+		r.Use(middleware.RequestLogger())
+	}
 
-    r.Use(middleware.Locale())
+	r.Use(middleware.Locale())
 
-    routes.Register(r)
+	routes.Register(r)
 
-    views.Initialize(r)
+	views.Initialize(r)
 
-    s := &http.Server{
-        Addr:           ":" + c.GetString("app.port"),
-        Handler:        r,
-        ReadTimeout:    time.Duration(c.GetInt64("app.read_timeout_seconds")) * time.Second,
-        WriteTimeout:   time.Duration(c.GetInt64("app.write_timeout_seconds")) * time.Second,
-        MaxHeaderBytes: 1 << 20,
-    }
+	s := &http.Server{
+		Addr:           ":" + c.GetString("app.port"),
+		Handler:        r,
+		ReadTimeout:    time.Duration(c.GetInt64("app.read_timeout_seconds")) * time.Second,
+		WriteTimeout:   time.Duration(c.GetInt64("app.write_timeout_seconds")) * time.Second,
+		MaxHeaderBytes: 1 << 20,
+	}
 
-    if err := s.ListenAndServe(); err != nil {
-        panic(err)
-    }
+	if err := s.ListenAndServe(); err != nil {
+		panic(err)
+	}
 }
 
 // gin validator v8 to v9
 type defaultValidator struct {
-    once     sync.Once
-    validate *validator.Validate
+	once     sync.Once
+	validate *validator.Validate
 }
 
 var _ binding.StructValidator = &defaultValidator{}
 
 func (v *defaultValidator) ValidateStruct(obj interface{}) error {
 
-    if kindOfData(obj) == reflect.Struct {
+	if kindOfData(obj) == reflect.Struct {
 
-        v.lazyinit()
+		v.lazyinit()
 
-        if err := v.validate.Struct(obj); err != nil {
-            return error(err)
-        }
-    }
+		if err := v.validate.Struct(obj); err != nil {
+			return error(err)
+		}
+	}
 
-    return nil
+	return nil
 }
 
 func (v *defaultValidator) Engine() interface{} {
-    v.lazyinit()
-    return v.validate
+	v.lazyinit()
+	return v.validate
 }
 
 func (v *defaultValidator) lazyinit() {
-    v.once.Do(func() {
-        v.validate = validator.New()
-        v.validate.SetTagName("binding")
+	v.once.Do(func() {
+		v.validate = validator.New()
+		v.validate.SetTagName("binding")
 
-        // add any custom validations etc. here
-    })
+		// add any custom validations etc. here
+	})
 }
 
 func kindOfData(data interface{}) reflect.Kind {
 
-    value := reflect.ValueOf(data)
-    valueType := value.Kind()
+	value := reflect.ValueOf(data)
+	valueType := value.Kind()
 
-    if valueType == reflect.Ptr {
-        valueType = value.Elem().Kind()
-    }
-    return valueType
+	if valueType == reflect.Ptr {
+		valueType = value.Elem().Kind()
+	}
+	return valueType
 }
