@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	migration.AddMigrator(&UserAffiliation1553678539{})
+	migration.AddMigrator(&CreateUserAffiliationTable1553678539{})
 }
 
 type UserAffiliation struct {
@@ -32,17 +32,17 @@ func (uaff *UserAffiliation) TableName() string {
 	return uaff.SetTableName("user_affiliation")
 }
 
-type UserAffiliation1553678539 struct {
+type CreateUserAffiliationTable1553678539 struct {
 	migration.MigratorIdentify
 	migration.MigrationUtils
 }
 
-func (*UserAffiliation1553678539) Up(db *gorm.DB) *gorm.DB {
+func (*CreateUserAffiliationTable1553678539) Up(db *gorm.DB) *gorm.DB {
 	db = db.CreateTable(&UserAffiliation{})
 	return db
 }
 
-func (*UserAffiliation1553678539) Down(db *gorm.DB) *gorm.DB {
+func (*CreateUserAffiliationTable1553678539) Down(db *gorm.DB) *gorm.DB {
 	db = db.DropTableIfExists(&UserAffiliation{})
 	return db
 }

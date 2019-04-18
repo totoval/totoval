@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	migration.AddMigrator(&User1548750742{})
+	migration.AddMigrator(&CreateUserTable1548750742{})
 }
 
 type User struct {
@@ -30,17 +30,17 @@ func (u *User) TableName() string {
 	return u.SetTableName("user")
 }
 
-type User1548750742 struct {
+type CreateUserTable1548750742 struct {
 	migration.MigratorIdentify
 	migration.MigrationUtils
 }
 
-func (*User1548750742) Up(db *gorm.DB) *gorm.DB {
+func (*CreateUserTable1548750742) Up(db *gorm.DB) *gorm.DB {
 	db = db.CreateTable(&User{})
 	return db
 }
 
-func (*User1548750742) Down(db *gorm.DB) *gorm.DB {
+func (*CreateUserTable1548750742) Down(db *gorm.DB) *gorm.DB {
 	db = db.DropTableIfExists(&User{})
 	return db
 }
