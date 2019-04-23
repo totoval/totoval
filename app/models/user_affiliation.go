@@ -37,7 +37,7 @@ type UserAffiliation struct {
 }
 
 func (uaff *UserAffiliation) TableName() string {
-	return uaff.SetTableName("user_affiliations")
+	return uaff.SetTableName("user_affiliation")
 }
 
 func (uaff *UserAffiliation) Default() interface{} {
