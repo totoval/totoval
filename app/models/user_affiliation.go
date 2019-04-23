@@ -44,14 +44,6 @@ func (uaff *UserAffiliation) Default() interface{} {
 	return UserAffiliation{}
 }
 
-func (uaff *UserAffiliation) InsertRoot() {
-	// 'uaff_user_id' => $root_user_id,
-	//     'uaff_root_id' => $root_user_id,
-	//     'uaff_level' => 1,
-	//     'uaff_left' => 1,
-	//     'uaff_right' => 2
-}
-
 func (uaff *UserAffiliation) generateCode(user *User) (string, error) {
 	if float64(*user.ID) > math.Pow(16, float64(AFFILIATION_CODE_LENGTH)) {
 		return "", errors.New("userID excceed the max affiliation length")
