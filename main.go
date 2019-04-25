@@ -31,6 +31,7 @@ func init() {
 	lang.Initialize() // an translation must contains resources/lang/xx.json file (then a resources/lang/validation_translator/xx.go)
 }
 
+// @caution cannot use config methods to get config in init function
 func main() {
 
 	// upgrade gin validator v8 to v9
