@@ -4,18 +4,17 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/totoval/framework/helpers/ptr"
-
 	"github.com/totoval/framework/helpers/m"
+	"github.com/totoval/framework/helpers/ptr"
 	"github.com/totoval/framework/model"
 )
 
 type User struct {
 	ID    *uint   `gorm:"column:user_id;primary_key;auto_increment"`
-	Name  *string `gorm:"column:user_name;type:varchar(100)"`
-	Email *string `gorm:"column:user_email;type:varchar(100);unique_index"`
-	//Telephone  string     `gorm:"column:user_telephone;type:varchar(100);unique_index"`
-	Password *string `gorm:"column:user_password;type:varchar(100)"`
+	Name  *string `gorm:"column:user_name;type:varchar(100)"` //@cautions struct member must be pointer when member could be null
+	Email string  `gorm:"column:user_email;type:varchar(100);unique_index;not null"`
+	//Telephone  *string     `gorm:"column:user_telephone;type:varchar(100);unique_index"`
+	Password string `gorm:"column:user_password;type:varchar(100);not null"`
 	//VerifiedAt mysql.NullTime  `gorm:"column:user_verified_at"`
 	CreatedAt *time.Time `gorm:"column:user_created_at"`
 	UpdatedAt time.Time  `gorm:"column:user_updated_at"`
@@ -29,7 +28,7 @@ func (user *User) TableName() string {
 
 func (user *User) Default() interface{} {
 	return User{
-		Name: ptr.String(""),
+		Name: ptr.String(""), //@cautions struct member should set default value at here when member type is not a pointer
 	}
 }
 

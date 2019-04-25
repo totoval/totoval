@@ -38,7 +38,7 @@ func (*User) Info(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
 		return
 	}
-	user.Password = nil
+	user.Password = "" // remove password value for response rendering
 	c.JSON(http.StatusOK, gin.H{"data": user})
 	return
 }

@@ -11,6 +11,7 @@ import (
 	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/utils/crypt"
 	"github.com/totoval/framework/utils/jwt"
+
 	"totoval/app/http/requests"
 	"totoval/app/models"
 )
@@ -27,14 +28,14 @@ func (l *Login) Login(c *gin.Context) {
 	}
 
 	user := models.User{
-		Email: &requestData.Email,
+		Email: requestData.Email,
 	}
 	if err := m.H().First(&user, false); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.login.failed_not_exist")})
 		return
 	}
 
-	if !crypt.BcryptCheck(*user.Password, requestData.Password) {
+	if !crypt.BcryptCheck(user.Password, requestData.Password) {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.login.failed_wrong_password")})
 		return
 	}

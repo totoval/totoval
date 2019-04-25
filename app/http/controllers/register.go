@@ -11,6 +11,7 @@ import (
 	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/utils/crypt"
 	"github.com/totoval/framework/utils/jwt"
+
 	"totoval/app/http/requests"
 	"totoval/app/models"
 )
@@ -28,7 +29,7 @@ func (r *Register) Register(c *gin.Context) {
 
 	// determine if exist
 	user := models.User{
-		Email: &requestData.Email,
+		Email: requestData.Email,
 	}
 	if m.H().Exist(&user, true) {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_existed")})
@@ -38,7 +39,7 @@ func (r *Register) Register(c *gin.Context) {
 	// create user
 	// encrypt password //@todo move to model setter later
 	encryptedPassword := crypt.Bcrypt(requestData.Password)
-	user.Password = &encryptedPassword
+	user.Password = encryptedPassword
 	if err := m.H().Create(&user); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_system_error")})
 		return
