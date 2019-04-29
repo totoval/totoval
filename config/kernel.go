@@ -2,6 +2,7 @@ package config
 
 import (
 	"github.com/gin-gonic/gin"
+
 	"github.com/totoval/framework/config"
 )
 

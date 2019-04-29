@@ -11,12 +11,12 @@ import (
 	"gopkg.in/go-playground/validator.v9"
 
 	"github.com/totoval/framework/cache"
-
 	c "github.com/totoval/framework/config"
 	"github.com/totoval/framework/database"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/http/middleware"
-
+	"github.com/totoval/framework/queue"
+	"totoval/app/jobs"
 	"totoval/config"
 	"totoval/resources/lang"
 	"totoval/resources/views"
@@ -29,6 +29,8 @@ func init() {
 	database.Initialize()
 	m.Initialize()
 	lang.Initialize() // an translation must contains resources/lang/xx.json file (then a resources/lang/validation_translator/xx.go)
+	queue.Initialize()
+	jobs.Initialize()
 }
 
 // @caution cannot use config methods to get config in init function

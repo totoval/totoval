@@ -1,0 +1,5 @@
+package jobs
+
+func Initialize() {
+	
+}
