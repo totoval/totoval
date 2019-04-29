@@ -1,4 +1,6 @@
 # Totoval
+<p align="center"><img src="https://avatars2.githubusercontent.com/u/47200793?s=200&v=4"></p>
+
 ![GitHub last commit](https://img.shields.io/github/last-commit/totoval/totoval.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/totoval/totoval)](https://goreportcard.com/report/github.com/totoval/totoval)
 ![Travis (.org)](https://img.shields.io/travis/totoval/totoval.svg)
