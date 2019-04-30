@@ -10,6 +10,7 @@ import (
 	"github.com/jinzhu/gorm"
 
 	"github.com/totoval/framework/helpers/debug"
+	"github.com/totoval/framework/helpers/ptr"
 
 	"github.com/totoval/framework/model/helper"
 
@@ -21,13 +22,13 @@ const AFFILIATION_CODE_LENGTH uint = 6
 
 type UserAffiliation struct {
 	UserID    *uint      `gorm:"column:user_id;primary_key;type:int unsigned"`
-	Code      string     `gorm:"column:uaff_code;type:varchar(32);not null"`
+	Code      *string    `gorm:"column:uaff_code;type:varchar(32);not null"`
 	FromCode  *string    `gorm:"column:uaff_from_code;type:varchar(32)"`
 	Root      *uint      `gorm:"column:uaff_root_id;type:int unsigned"`
 	Parent    *uint      `gorm:"column:uaff_parent_id;type:int unsigned"`
-	Left      uint       `gorm:"column:uaff_left_id;type:int unsigned;not null"`
-	Right     uint       `gorm:"column:uaff_right_id;type:int unsigned;not null"`
-	Level     uint       `gorm:"column:uaff_level;type:int unsigned;not null"`
+	Left      *uint      `gorm:"column:uaff_left_id;type:int unsigned;not null"`
+	Right     *uint      `gorm:"column:uaff_right_id;type:int unsigned;not null"`
+	Level     *uint      `gorm:"column:uaff_level;type:int unsigned;not null"`
 	CreatedAt *time.Time `gorm:"column:user_created_at"`
 	UpdatedAt time.Time  `gorm:"column:user_updated_at"`
 	DeletedAt *time.Time `gorm:"column:user_deleted_at"`
@@ -40,9 +41,6 @@ func (uaff *UserAffiliation) TableName() string {
 
 func (uaff *UserAffiliation) Default() interface{} {
 	return UserAffiliation{
-		FromCode: nil,
-		Root:     nil,
-		Parent:   nil,
 	}
 }
 
@@ -74,7 +72,7 @@ func (uaff *UserAffiliation) InsertNode(user *User, fromCode ...string) error {
 		}
 		current := UserAffiliation{
 			UserID:   user.ID,
-			Code:     code,
+			Code:     &code,
 			FromCode: fromCodePtr,
 		}
 
@@ -83,9 +81,9 @@ func (uaff *UserAffiliation) InsertNode(user *User, fromCode ...string) error {
 			// no parent
 			current.Root = current.UserID
 			current.Parent = nil
-			current.Level = 1
-			current.Left = 1
-			current.Right = 2
+			current.Level = ptr.Uint(1)
+			current.Left = ptr.Uint(1)
+			current.Right = ptr.Uint(2)
 			if err := TransactionHelper.Create(&current); err != nil {
 				panic(err)
 			}
@@ -101,7 +99,7 @@ func (uaff *UserAffiliation) InsertNode(user *User, fromCode ...string) error {
 
 		// 1. get parent node
 		parent := UserAffiliation{
-			Code: *fromCodePtr,
+			Code: fromCodePtr,
 		}
 		if !TransactionHelper.Exist(&parent, false) {
 			panic(errors.New("affiliation code not found"))
@@ -132,10 +130,10 @@ func (uaff *UserAffiliation) InsertNode(user *User, fromCode ...string) error {
 
 		current.Root = parent.Root
 		current.Parent = parent.UserID
-		current.Level = parent.Level + 1
+		current.Level = ptr.Uint(*parent.Level + 1)
 
 		current.Left = parent.Right
-		current.Right = parent.Right + 1
+		current.Right = ptr.Uint(*parent.Right + 1)
 		if err := TransactionHelper.Create(&current); err != nil {
 			panic(err)
 		}
@@ -218,7 +216,7 @@ func (uaff *UserAffiliation) All() Tree {
 
 	r := Tree{ID: 0, Children: []Tree{}, Name: "root", Value: "root value"}
 	for _, val := range rootNodes.([]UserAffiliation) {
-		current := Tree{ID: *val.UserID, Children: []Tree{}, Name: val.Code, Value: val.Code}
+		current := Tree{ID: *val.UserID, Children: []Tree{}, Name: *val.Code, Value: *val.Code}
 		nodes, err := uaff.Tree(*val.UserID)
 		if err != nil {
 			debug.Dump(err)
@@ -235,11 +233,11 @@ func (uaff *UserAffiliation) All() Tree {
 
 func (t *Tree) recursiveCombineTree(current Tree, level uint, nodes []UserAffiliation) []Tree {
 	for _, uaff := range nodes {
-		if uaff.Level < level+1 {
+		if *uaff.Level < level+1 {
 			continue
 		}
 
-		if uaff.Level > level+1 {
+		if *uaff.Level > level+1 {
 			continue
 		}
 
@@ -247,7 +245,8 @@ func (t *Tree) recursiveCombineTree(current Tree, level uint, nodes []UserAffili
 			_current := Tree{
 				ID:       *uaff.UserID,
 				Children: []Tree{},
-				Name:     uaff.Code, Value: uaff.Code,
+				Name:     *uaff.Code,
+				Value:    *uaff.Code,
 			}
 			_current.Children = t.recursiveCombineTree(_current, level+1, nodes)
 
