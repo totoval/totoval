@@ -1,4 +1,3 @@
-# Totoval
 <p align="center"><img src="https://raw.githubusercontent.com/totoval/art/master/repo_use/logo-with-words-landscape.png?s=200&v=4"></p>
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/totoval/totoval.svg)
