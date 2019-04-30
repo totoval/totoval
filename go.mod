@@ -1,5 +1,7 @@
 module totoval
 
+go 1.11.x
+
 require (
 	github.com/coreos/etcd v3.3.10+incompatible
 	github.com/gin-gonic/gin v1.3.0
@@ -7,7 +9,7 @@ require (
 	github.com/go-playground/universal-translator v0.16.0
 	github.com/golang/protobuf v1.3.1
 	github.com/jinzhu/gorm v1.9.2
-	github.com/totoval/framework v0.4.0-alpha
+	github.com/totoval/framework v0.4.0-beta
 	github.com/ugorji/go/codec v0.0.0-20190204201341-e444a5086c43 // indirect
 	github.com/urfave/cli v1.20.0
 	golang.org/x/net v0.0.0-20190213061140-3a22650c66bd // indirect

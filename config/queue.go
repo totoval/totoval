@@ -2,6 +2,7 @@ package config
 
 import (
 	. "github.com/totoval/framework/config"
+	"totoval/app/models"
 )
 
 func init() {
@@ -14,6 +15,8 @@ func init() {
 			"port": Env("QUEUE_NSQ_PORT", "4151"),
 		},
 	}
+
+	queue["failed_db_processor_model"] = &models.FailedQueue{}
 
 	Add("queue", queue)
 }
