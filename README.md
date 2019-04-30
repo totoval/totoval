@@ -1,5 +1,5 @@
 # Totoval
-<p align="center"><img src="https://avatars2.githubusercontent.com/u/47200793?s=200&v=4"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/totoval/art/master/repo_use/logo-with-words-landscape.png?s=200&v=4"></p>
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/totoval/totoval.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/totoval/totoval)](https://goreportcard.com/report/github.com/totoval/totoval)
@@ -39,8 +39,8 @@ Totoval is an API web framework that helps Golang engineers build a performance-
 - [x] Language Package
 - [x] Cache: Memory
 - [ ] Cache: Redis
-- [ ] Queue, Worker
-- [ ] Events
+- [x] Queue, Worker
+- [ ] Event, Listener
 - [ ] File Storage
 - [ ] Custom Artisan Command Line
 - [ ] Task Scheduling
@@ -48,7 +48,7 @@ Totoval is an API web framework that helps Golang engineers build a performance-
 - [ ] Database Seeder
 - [ ] More Unit Test
 - [ ] Websocket Support
-- [ ] Logo
+- [x] Logo
 - [ ] Website && Document
 - [ ] CI
 
