@@ -12,7 +12,7 @@ func init() {
 	queue["connections"] = map[string]interface{}{
 		"nsq": map[string]interface{}{
 			"host": Env("QUEUE_NSQ_HOST", "127.0.0.1"),
-			"port": Env("QUEUE_NSQ_PORT", "4151"),
+			"port": Env("QUEUE_NSQ_PORT", "4150"),
 		},
 	}
 
