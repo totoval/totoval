@@ -14,6 +14,7 @@ import (
 	"github.com/totoval/framework/model/helper"
 	"github.com/totoval/framework/utils/crypt"
 	"github.com/totoval/framework/utils/jwt"
+
 	"totoval/app/events"
 	pbs "totoval/app/events/protocol_buffers"
 
@@ -50,7 +51,7 @@ func (r *Register) Register(c *gin.Context) {
 		user := models.User{
 			Email: &requestData.Email,
 		}
-		if m.H().Exist(&user, true) {
+		if TransactionHelper.Exist(&user, true) {
 			panic(errors.New(helpers.L(c, "auth.register.failed_existed")))
 		}
 
@@ -58,7 +59,7 @@ func (r *Register) Register(c *gin.Context) {
 		// encrypt password //@todo move to model setter later
 		encryptedPassword := crypt.Bcrypt(requestData.Password)
 		user.Password = &encryptedPassword
-		if err := m.H().Create(&user); err != nil {
+		if err := TransactionHelper.Create(&user); err != nil {
 			panic(errors.New(helpers.L(c, "auth.register.failed_system_error")))
 		}
 
