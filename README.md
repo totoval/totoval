@@ -39,7 +39,7 @@ Totoval is an API web framework that helps Golang engineers build a performance-
 - [x] Cache: Memory
 - [ ] Cache: Redis
 - [x] Queue, Worker
-- [ ] Event, Listener
+- [x] Event, Listener
 - [ ] File Storage
 - [ ] Custom Artisan Command Line
 - [ ] Task Scheduling
@@ -61,3 +61,5 @@ Totoval is an API web framework that helps Golang engineers build a performance-
 * i18n
 * urfave/cli
 * fatih/color
+* golang/protobuf
+* nsqio/go-nsq

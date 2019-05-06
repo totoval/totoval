@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message UserRegistered {
+    uint32 user_id = 1;
+    string affiliation_from_code = 2;
+}

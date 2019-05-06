@@ -4,7 +4,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
 	"github.com/totoval/framework/helpers/m"
+	"github.com/totoval/framework/helpers/ptr"
 	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/http/middleware"
 	"github.com/totoval/framework/model"
@@ -38,7 +40,7 @@ func (*User) Info(c *gin.Context) {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
 		return
 	}
-	user.Password = "" // remove password value for response rendering
+	user.Password = ptr.String("") // remove password value for response rendering
 	c.JSON(http.StatusOK, gin.H{"data": user})
 	return
 }
