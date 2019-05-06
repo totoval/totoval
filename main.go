@@ -16,7 +16,9 @@ import (
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/http/middleware"
 	"github.com/totoval/framework/queue"
+	"totoval/app/events"
 	"totoval/app/jobs"
+	"totoval/app/listeners"
 	"totoval/config"
 	"totoval/resources/lang"
 	"totoval/resources/views"
@@ -31,6 +33,8 @@ func init() {
 	lang.Initialize() // an translation must contains resources/lang/xx.json file (then a resources/lang/validation_translator/xx.go)
 	queue.Initialize()
 	jobs.Initialize()
+	events.Initialize()
+	listeners.Initialize()
 }
 
 // @caution cannot use config methods to get config in init function
@@ -64,6 +68,17 @@ func main() {
 		WriteTimeout:   time.Duration(c.GetInt64("app.write_timeout_seconds")) * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
+
+	//j := &jobs.ExampleJob{}
+	//j.SetParam(&pbs.ExampleJob{Query: "shit", PageNumber: 111, ResultPerPage: 222})
+	//j.SetDelay(5 * time.Second)
+	//err := job.Dispatch(j)
+	//fmt.Println(err)
+
+	//go job.Process("example-job")
+	//fmt.Println(queue.Retry(1))
+
+	//go hub.On("add-user-affiliation")
 
 	if err := s.ListenAndServe(); err != nil {
 		panic(err)

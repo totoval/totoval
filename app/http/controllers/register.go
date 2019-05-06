@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,8 +10,12 @@ import (
 	"github.com/totoval/framework/helpers"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/http/controller"
+	"github.com/totoval/framework/hub"
+	"github.com/totoval/framework/model/helper"
 	"github.com/totoval/framework/utils/crypt"
 	"github.com/totoval/framework/utils/jwt"
+	"totoval/app/events"
+	pbs "totoval/app/events/protocol_buffers"
 
 	"totoval/app/http/requests"
 	"totoval/app/models"
@@ -27,52 +32,69 @@ func (r *Register) Register(c *gin.Context) {
 		return
 	}
 
-	// determine if exist
-	user := models.User{
-		Email: requestData.Email,
-	}
-	if m.H().Exist(&user, true) {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_existed")})
-		return
-	}
+	var responseErr error
+	defer func() {
+		if err := recover(); err != nil {
+			var ok bool
+			responseErr, ok = err.(error)
+			if ok {
+				return
+			}
+			panic(err)
+		}
+	}()
 
-	// create user
-	// encrypt password //@todo move to model setter later
-	encryptedPassword := crypt.Bcrypt(requestData.Password)
-	user.Password = encryptedPassword
-	if err := m.H().Create(&user); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_system_error")})
-		return
-	}
+	var token string
+	m.Transaction(func(TransactionHelper *helper.Helper) {
+		// determine if exist
+		user := models.User{
+			Email: &requestData.Email,
+		}
+		if m.H().Exist(&user, true) {
+			panic(errors.New(helpers.L(c, "auth.register.failed_existed")))
+		}
 
-	// add user affiliation
-	if config.GetBool("user_affiliation.enable") {
-		uaffPtr := &models.UserAffiliation{
-			UserID: user.ID,
+		// create user
+		// encrypt password //@todo move to model setter later
+		encryptedPassword := crypt.Bcrypt(requestData.Password)
+		user.Password = &encryptedPassword
+		if err := m.H().Create(&user); err != nil {
+			panic(errors.New(helpers.L(c, "auth.register.failed_system_error")))
+		}
+
+		// emit user-registered event
+		ur := events.UserRegistered{}
+		param := &pbs.UserRegistered{
+			UserId:              uint32(*user.ID),
+			AffiliationFromCode: "",
+		}
+		if requestData.AffiliationFromCode != nil {
+			param.AffiliationFromCode = *requestData.AffiliationFromCode
+		}
+		ur.SetParam(param)
+		if errs := hub.Emit(&ur); errs != nil {
+			panic(errors.New(helpers.L(c, "auth.register.failed_system_error")))
+		}
+
+		// create jwt
+		newJwt := jwt.NewJWT(config.GetString("auth.sign_key"))
+		username := ""
+		if user.Name != nil {
+			username = *user.Name
 		}
 		var err error
-		if requestData.AffiliationFromCode != nil {
-			err = uaffPtr.InsertNode(&user, *requestData.AffiliationFromCode)
-		} else {
-			err = uaffPtr.InsertNode(&user)
-		}
+		token, err = newJwt.CreateToken(string(*user.ID), username)
 		if err != nil {
-			c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_system_error")})
-			return
+			panic(helpers.L(c, "auth.register.failed_token_generate_error"))
 		}
-	}
 
-	// create jwt
-	newJwt := jwt.NewJWT(config.GetString("auth.sign_key"))
-	username := ""
-	if user.Name != nil {
-		username = *user.Name
-	}
-	if token, err := newJwt.CreateToken(string(*user.ID), username); err == nil {
-		c.JSON(http.StatusOK, gin.H{"token": token})
+	}, 1)
+
+	if responseErr != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": responseErr.Error()})
 		return
 	}
 
-	c.JSON(http.StatusUnprocessableEntity, gin.H{"error": helpers.L(c, "auth.register.failed_token_generate_error")})
+	c.JSON(http.StatusOK, gin.H{"token": token})
 	return
 }

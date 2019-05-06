@@ -15,7 +15,7 @@ func init() {
 
 type UserAffiliation struct {
 	UserID    *uint      `gorm:"column:user_id;primary_key;type:int unsigned"`
-	Code      *string    `gorm:"column:uaff_code;type:varchar(32);not null"`
+	Code      *string    `gorm:"column:uaff_code;type:varchar(32);unique_index;not null"`
 	FromCode  *string    `gorm:"column:uaff_from_code;type:varchar(32)"`
 	Root      *uint      `gorm:"column:uaff_root_id;type:int unsigned"`
 	Parent    *uint      `gorm:"column:uaff_parent_id;type:int unsigned"`

@@ -5,7 +5,7 @@ import (
 
 	"github.com/totoval/framework/helpers/debug"
 	"github.com/totoval/framework/job"
-	test "totoval/app/jobs/protocol_buffers"
+	pbs "totoval/app/jobs/protocol_buffers"
 )
 
 func init() {
@@ -21,15 +21,15 @@ func (e *ExampleJob) Retries() uint32 {
 }
 
 func (e *ExampleJob) Name() string {
-	return "example_job"
+	return "example-job"
 }
 
 func (e *ExampleJob) ParamProto() proto.Message {
-	return &test.ExampleJob{}
+	return &pbs.ExampleJob{}
 }
 
 func (e *ExampleJob) Handle(paramPtr proto.Message) error {
-	obj := paramPtr.(*test.ExampleJob)
+	obj := paramPtr.(*pbs.ExampleJob)
 	debug.Dump(obj)
 	return nil
 }
