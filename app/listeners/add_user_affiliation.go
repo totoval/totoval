@@ -27,7 +27,7 @@ func (auaff *AddUserAffiliation) Name() hub.ListenerName {
 	return "add-user-affiliation"
 }
 
-func (auaff *AddUserAffiliation) Subscribe() (eventPtrList [] hub.Eventer) {
+func (auaff *AddUserAffiliation) Subscribe() (eventPtrList []hub.Eventer) {
 	return []hub.Eventer{
 		&events.UserRegistered{},
 	}

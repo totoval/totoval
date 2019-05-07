@@ -25,8 +25,7 @@ func (user *User) TableName() string {
 }
 
 func (user *User) Default() interface{} {
-	return User{
-	}
+	return User{}
 }
 
 func (user *User) User() *User {
