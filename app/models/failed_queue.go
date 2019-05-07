@@ -58,8 +58,7 @@ func (fq *FailedQueue) RetryHash() string {
 }
 
 func (fq *FailedQueue) Default() interface{} {
-	return FailedQueue{
-	}
+	return FailedQueue{}
 }
 
 func (fq *FailedQueue) FailedToDatabase(topicName string, channelName string, msg *message.Message, errStr string) error {

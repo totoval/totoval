@@ -40,8 +40,7 @@ func (uaff *UserAffiliation) TableName() string {
 }
 
 func (uaff *UserAffiliation) Default() interface{} {
-	return UserAffiliation{
-	}
+	return UserAffiliation{}
 }
 
 func (uaff *UserAffiliation) generateCode(user *User) (string, error) {
