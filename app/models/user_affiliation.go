@@ -172,7 +172,16 @@ func (uaff *UserAffiliation) Tree(rootID uint) ([]UserAffiliation, error) {
 
 	return nodes.([]UserAffiliation), nil
 }
+func (uaff *UserAffiliation) CountByParent(parentID uint) (uint, error) {
+	parent := UserAffiliation{
+		UserID: &parentID,
+	}
+	if err := m.H().First(&parent, false); err != nil {
+		return 0, err
+	}
 
+	return (*parent.Right - 1 - *parent.Left) / 2, nil
+}
 func (uaff *UserAffiliation) TreeByParent(parentID uint) ([]UserAffiliation, error) {
 	parent := UserAffiliation{
 		UserID: &parentID,
