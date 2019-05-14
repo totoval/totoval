@@ -1,50 +1,63 @@
 package main
 
 import (
-	"github.com/totoval/framework/cmd"
-	"github.com/totoval/framework/cmd/groups"
-	"github.com/totoval/framework/database"
-	"github.com/totoval/framework/helpers/m"
-	"github.com/urfave/cli"
 	"log"
 	"os"
+
+	"github.com/urfave/cli"
+
+	"github.com/totoval/framework/cache"
+	"github.com/totoval/framework/cmd"
+	"github.com/totoval/framework/cmd/migration"
+	"github.com/totoval/framework/database"
+	"github.com/totoval/framework/helpers/m"
+	"github.com/totoval/framework/queue"
+	"totoval/app/console/commands"
+
+	"totoval/app/events"
+	"totoval/app/jobs"
+	"totoval/app/listeners"
 	"totoval/config"
-	"totoval/database/migrations"
+	"totoval/resources/lang"
 )
 
 func init() {
 	config.Initialize()
+	cache.Initialize()
 	database.Initialize()
 	m.Initialize()
+	lang.Initialize() // an translation must contains resources/lang/xx.json file (then a resources/lang/validation_translator/xx.go)
+	queue.Initialize()
+	jobs.Initialize()
+	events.Initialize()
+	listeners.Initialize()
+
+	migration.Initialize()
+	commands.Initialize()
 }
 
 func main() {
 	app := cli.NewApp()
 	app.Name = "artisan"
 	app.Usage = "Let's work like an artisan"
+	app.Version = "0.4.6"
 
-	chLog := make(chan interface{})
-
-	// command group
-	migrateCommand := &groups.MigrateCommand{MigratorInitializer: migrations.Initialize, ChLog: chLog}
-
-	//app.Flags = []cli.Flag {
-	//	cli.StringFlag{
-	//		Name:        "lang",
-	//		Value:       "english",
-	//		Usage:       "language for the greeting",
-	//		Destination: &language,
-	//	},
-	//}
+	app.Commands = cmd.List()
 
 	app.Action = func(c *cli.Context) error {
-		return nil
-	}
+		cmd.Println(cmd.CODE_INFO, "COMMANDS:")
+		for _, cate := range app.Categories() {
+			categoryName := cate.Name
+			if categoryName == "" {
+				categoryName = "kernel"
+			}
+			cmd.Println(cmd.CODE_WARNING, "    "+categoryName+":")
 
-	app.Commands = []cli.Command{
-		migrateCommand.MigrationInit(),
-		migrateCommand.Migrate(),
-		migrateCommand.MigrateRollBack(),
+			for _, cmds := range cate.Commands {
+				cmd.Println(cmd.CODE_SUCCESS, "        "+cmds.Name+"    "+cmd.Sprintf(cmd.CODE_WARNING, "%s", cmds.Usage))
+			}
+		}
+		return nil
 	}
 
 	err := app.Run(os.Args)
@@ -52,16 +65,4 @@ func main() {
 		log.Fatal(err)
 	}
 
-	receiveLog(chLog)
-}
-
-func receiveLog(chLog chan interface{}) {
-	for _log := range chLog {
-		if _log == nil {
-			os.Exit(0)
-		}
-		if __log, ok := _log.(cmd.TermLog); ok {
-			__log.Print()
-		}
-	}
 }
