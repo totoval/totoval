@@ -3,8 +3,6 @@ package commands
 import (
 	"fmt"
 
-	"github.com/urfave/cli"
-
 	"github.com/totoval/framework/cmd"
 )
 
@@ -16,7 +14,7 @@ type HelloWorld struct {
 }
 
 func (hw *HelloWorld) Command() string {
-	return "say:hello-world"
+	return "say:hello-world {test}"
 }
 
 func (hw *HelloWorld) Aliases() []string {
@@ -29,7 +27,7 @@ func (hw *HelloWorld) Description() string {
 	return "Say Hello"
 }
 
-func (hw *HelloWorld) Handler(c *cli.Context) error {
+func (hw *HelloWorld) Handler(arg *cmd.Arg) error {
 	fmt.Println("Hello World")
 	return nil
 }
