@@ -1,5 +1,5 @@
 package commands
 
 func Initialize() {
-	
+
 }
