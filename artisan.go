@@ -8,10 +8,13 @@ import (
 
 	"github.com/totoval/framework/cache"
 	"github.com/totoval/framework/cmd"
+	"github.com/totoval/framework/cmd/failed_queue"
 	"github.com/totoval/framework/cmd/migration"
+	"github.com/totoval/framework/console"
 	"github.com/totoval/framework/database"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/queue"
+
 	"totoval/app/console/commands"
 
 	"totoval/app/events"
@@ -33,6 +36,7 @@ func init() {
 	listeners.Initialize()
 
 	migration.Initialize()
+	failed_queue.Initialize()
 	commands.Initialize()
 }
 
@@ -45,16 +49,17 @@ func main() {
 	app.Commands = cmd.List()
 
 	app.Action = func(c *cli.Context) error {
-		cmd.Println(cmd.CODE_INFO, "COMMANDS:")
+		console.Println(console.CODE_INFO, "COMMANDS:")
+
 		for _, cate := range app.Categories() {
 			categoryName := cate.Name
 			if categoryName == "" {
 				categoryName = "kernel"
 			}
-			cmd.Println(cmd.CODE_WARNING, "    "+categoryName+":")
+			console.Println(console.CODE_WARNING, "    "+categoryName+":")
 
 			for _, cmds := range cate.Commands {
-				cmd.Println(cmd.CODE_SUCCESS, "        "+cmds.Name+"    "+cmd.Sprintf(cmd.CODE_WARNING, "%s", cmds.Usage))
+				console.Println(console.CODE_SUCCESS, "        "+cmds.Name+" "+console.Sprintf(console.CODE_INFO, "%s", cmds.ArgsUsage)+"    "+console.Sprintf(console.CODE_WARNING, "%s", cmds.Usage))
 			}
 		}
 		return nil
