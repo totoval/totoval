@@ -1,14 +1,17 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
 	"log"
 	"time"
+
+	"github.com/gin-gonic/gin"
+
+	"github.com/totoval/framework/helpers/zone"
 )
 
 func Example() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		t := time.Now()
+		t := zone.Now()
 
 		// Set example variable
 		c.Set("example", "12345")
