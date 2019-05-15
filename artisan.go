@@ -6,14 +6,17 @@ import (
 
 	"github.com/urfave/cli"
 
+	"github.com/totoval/framework/cmd/commands/failed_queue"
+	"github.com/totoval/framework/cmd/commands/migration"
+	"github.com/totoval/framework/console"
+
 	"github.com/totoval/framework/cache"
 	"github.com/totoval/framework/cmd"
-	"github.com/totoval/framework/cmd/failed_queue"
-	"github.com/totoval/framework/cmd/migration"
-	"github.com/totoval/framework/console"
+	"github.com/totoval/framework/cmd/commands/schedule"
 	"github.com/totoval/framework/database"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/queue"
+	app_schedule "totoval/app/console"
 
 	"totoval/app/console/commands"
 
@@ -37,10 +40,13 @@ func init() {
 
 	migration.Initialize()
 	failed_queue.Initialize()
+	schedule.Initialize()
 	commands.Initialize()
 }
 
 func main() {
+	scheduleInit()
+
 	app := cli.NewApp()
 	app.Name = "artisan"
 	app.Usage = "Let's work like an artisan"
@@ -70,4 +76,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+}
+
+func scheduleInit() {
+	app_schedule.Schedule(cmd.NewSchedule())
 }
