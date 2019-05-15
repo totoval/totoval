@@ -15,9 +15,7 @@ import (
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/helpers/zone"
 	"github.com/totoval/framework/http/middleware"
-	"github.com/totoval/framework/hub"
 	"github.com/totoval/framework/queue"
-
 	"totoval/app/events"
 	"totoval/app/jobs"
 	"totoval/app/listeners"
@@ -77,10 +75,7 @@ func main() {
 	//err := job.Dispatch(j)
 	//fmt.Println(err)
 
-	//go job.Process("example-job")
-	//fmt.Println(queue.Retry(1))
-
-	go hub.On("add-user-affiliation")
+	//go hub.On("add-user-affiliation")  // go run artisan.go queue:listen add-user-affiliation
 
 	if err := s.ListenAndServe(); err != nil {
 		panic(err)

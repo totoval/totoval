@@ -6,16 +6,17 @@ import (
 
 	"github.com/urfave/cli"
 
-	"github.com/totoval/framework/cmd/commands/failed_queue"
 	"github.com/totoval/framework/cmd/commands/migration"
 	"github.com/totoval/framework/console"
 
 	"github.com/totoval/framework/cache"
 	"github.com/totoval/framework/cmd"
+	command_queue "github.com/totoval/framework/cmd/commands/queue"
 	"github.com/totoval/framework/cmd/commands/schedule"
 	"github.com/totoval/framework/database"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/queue"
+
 	app_schedule "totoval/app/console"
 
 	"totoval/app/console/commands"
@@ -39,9 +40,9 @@ func init() {
 	listeners.Initialize()
 
 	migration.Initialize()
-	failed_queue.Initialize()
-	schedule.Initialize()
+	command_queue.Initialize()
 	commands.Initialize()
+	schedule.Initialize()
 }
 
 func main() {
