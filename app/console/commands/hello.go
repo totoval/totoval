@@ -14,7 +14,7 @@ type HelloWorld struct {
 }
 
 func (hw *HelloWorld) Command() string {
-	return "say:hello-world {test}"
+	return "say:hello-world {hi}"
 }
 
 func (hw *HelloWorld) Description() string {
@@ -22,6 +22,16 @@ func (hw *HelloWorld) Description() string {
 }
 
 func (hw *HelloWorld) Handler(arg *cmd.Arg) error {
-	fmt.Println("Hello World")
+	hi, err := arg.Get("hi")
+	if err != nil {
+		return err
+	}
+
+	if hi == nil {
+		fmt.Println("Hello World")
+		return nil
+	}
+
+	fmt.Println(*hi)
 	return nil
 }

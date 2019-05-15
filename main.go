@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"reflect"
 	"sync"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
@@ -14,8 +13,11 @@ import (
 	c "github.com/totoval/framework/config"
 	"github.com/totoval/framework/database"
 	"github.com/totoval/framework/helpers/m"
+	"github.com/totoval/framework/helpers/zone"
 	"github.com/totoval/framework/http/middleware"
+	"github.com/totoval/framework/hub"
 	"github.com/totoval/framework/queue"
+
 	"totoval/app/events"
 	"totoval/app/jobs"
 	"totoval/app/listeners"
@@ -64,21 +66,21 @@ func main() {
 	s := &http.Server{
 		Addr:           ":" + c.GetString("app.port"),
 		Handler:        r,
-		ReadTimeout:    time.Duration(c.GetInt64("app.read_timeout_seconds")) * time.Second,
-		WriteTimeout:   time.Duration(c.GetInt64("app.write_timeout_seconds")) * time.Second,
+		ReadTimeout:    zone.Duration(c.GetInt64("app.read_timeout_seconds")) * zone.Second,
+		WriteTimeout:   zone.Duration(c.GetInt64("app.write_timeout_seconds")) * zone.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
 
 	//j := &jobs.ExampleJob{}
 	//j.SetParam(&pbs.ExampleJob{Query: "shit", PageNumber: 111, ResultPerPage: 222})
-	//j.SetDelay(5 * time.Second)
+	////j.SetDelay(5 * zone.Second)
 	//err := job.Dispatch(j)
 	//fmt.Println(err)
 
 	//go job.Process("example-job")
 	//fmt.Println(queue.Retry(1))
 
-	//go hub.On("add-user-affiliation")
+	go hub.On("add-user-affiliation")
 
 	if err := s.ListenAndServe(); err != nil {
 		panic(err)
