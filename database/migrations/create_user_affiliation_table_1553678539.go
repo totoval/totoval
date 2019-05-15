@@ -1,11 +1,10 @@
 package migrations
 
 import (
-	"time"
-
 	"github.com/jinzhu/gorm"
 
 	"github.com/totoval/framework/database/migration"
+	"github.com/totoval/framework/helpers/zone"
 	"github.com/totoval/framework/model"
 )
 
@@ -22,9 +21,9 @@ type UserAffiliation struct {
 	Left      *uint      `gorm:"column:uaff_left_id;type:int unsigned;not null"`
 	Right     *uint      `gorm:"column:uaff_right_id;type:int unsigned;not null"`
 	Level     *uint      `gorm:"column:uaff_level;type:int unsigned;not null"`
-	CreatedAt *time.Time `gorm:"column:user_created_at"`
-	UpdatedAt time.Time  `gorm:"column:user_updated_at"`
-	DeletedAt *time.Time `gorm:"column:user_deleted_at"`
+	CreatedAt *zone.Time `gorm:"column:user_created_at"`
+	UpdatedAt zone.Time  `gorm:"column:user_updated_at"`
+	DeletedAt *zone.Time `gorm:"column:user_deleted_at"`
 	model.BaseModel
 }
 
