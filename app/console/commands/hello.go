@@ -17,12 +17,6 @@ func (hw *HelloWorld) Command() string {
 	return "say:hello-world {test}"
 }
 
-func (hw *HelloWorld) Aliases() []string {
-	return []string{
-		"c",
-	}
-}
-
 func (hw *HelloWorld) Description() string {
 	return "Say Hello"
 }
