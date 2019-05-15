@@ -4,9 +4,8 @@ import (
 	"github.com/jinzhu/gorm"
 
 	"github.com/totoval/framework/database/migration"
+	"github.com/totoval/framework/helpers/zone"
 	"github.com/totoval/framework/model"
-
-	"time"
 )
 
 func init() {
@@ -18,9 +17,9 @@ type User struct {
 	Name      *string    `gorm:"column:user_name;type:varchar(100)"` //@cautions struct member must be pointer when member could be null
 	Email     *string    `gorm:"column:user_email;type:varchar(100);unique_index;not null"`
 	Password  *string    `gorm:"column:user_password;type:varchar(100);not null"`
-	CreatedAt *time.Time `gorm:"column:user_created_at"`
-	UpdatedAt time.Time  `gorm:"column:user_updated_at"`
-	DeletedAt *time.Time `gorm:"column:user_deleted_at"`
+	CreatedAt *zone.Time `gorm:"column:user_created_at"`
+	UpdatedAt zone.Time  `gorm:"column:user_updated_at"`
+	DeletedAt *zone.Time `gorm:"column:user_deleted_at"`
 	model.BaseModel
 }
 

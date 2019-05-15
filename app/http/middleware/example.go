@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"log"
-	"time"
 
 	"github.com/gin-gonic/gin"
 
@@ -21,7 +20,7 @@ func Example() gin.HandlerFunc {
 		c.Next()
 
 		// after request
-		latency := time.Since(t)
+		latency := zone.Since(t)
 		log.Print(latency)
 
 		// access the status we are sending
