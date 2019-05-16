@@ -8,6 +8,7 @@ import (
 
 	"github.com/totoval/framework/cmd/commands/migration"
 	"github.com/totoval/framework/console"
+	"github.com/totoval/framework/helpers/zone"
 
 	"github.com/totoval/framework/cache"
 	"github.com/totoval/framework/cmd"
@@ -30,6 +31,7 @@ import (
 
 func init() {
 	config.Initialize()
+	zone.Initialize()
 	cache.Initialize()
 	database.Initialize()
 	m.Initialize()
