@@ -8,6 +8,7 @@ import (
 	"github.com/totoval/framework/config"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/hub"
+
 	"totoval/app/events"
 	pbs "totoval/app/events/protocol_buffers"
 	"totoval/app/models"
@@ -41,7 +42,7 @@ func (auaff *AddUserAffiliation) Construct(paramPtr proto.Message) error {
 	}
 
 	auaff.affiliationFromCode = nil
-	if param.AffiliationFromCode != "" {
+	if param.AffiliationFromCode != "" && checkFromCode(param.AffiliationFromCode) {
 		auaff.affiliationFromCode = &param.AffiliationFromCode
 	}
 
@@ -72,4 +73,12 @@ func (auaff *AddUserAffiliation) Handle() error {
 	}
 
 	return nil
+}
+
+// check affiliationFromCode is valid
+func checkFromCode(affiliationFromCode string) bool {
+	uaff := models.UserAffiliation{
+		Code: &affiliationFromCode,
+	}
+	return m.H().Exist(&uaff, false)
 }
