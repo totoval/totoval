@@ -31,23 +31,23 @@ Totoval is an API web framework that helps Golang engineers build a performance-
 - [x] Validation Error Multi-Language Support
 - [x] Request Logger Middleware
 - [x] Infinity User Affiliation System
-- [ ] Model Getter/Setter
 - [x] User Email Validation via Notification
 - [x] Views Support
-- [ ] Error Handler
 - [x] Language Package
 - [x] Cache: Memory
-- [ ] Cache: Redis
 - [x] Queue, Worker `nsq`
 - [x] Event, Listener
-- [ ] File Storage
 - [x] Custom Artisan Command Line
-- [ ] Task Scheduling
+- [x] Task Scheduling
+- [x] Logo
+- [ ] Cache: Redis
+- [ ] Error Handler
+- [ ] Model Getter/Setter
+- [ ] File Storage
 - [ ] User Authorization
 - [ ] Database Seeder
 - [ ] More Unit Test
 - [ ] Websocket Support
-- [x] Logo
 - [ ] Website && Document
 - [ ] CI
 
@@ -63,3 +63,4 @@ Totoval is an API web framework that helps Golang engineers build a performance-
 * fatih/color
 * golang/protobuf
 * nsqio/go-nsq
+* robfig/cron
