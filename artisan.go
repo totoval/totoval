@@ -6,9 +6,9 @@ import (
 
 	"github.com/urfave/cli"
 
-	"github.com/totoval/framework/cmd/commands/migration"
 	"github.com/totoval/framework/console"
 	"github.com/totoval/framework/helpers/zone"
+	"totoval/database/migrations"
 
 	"github.com/totoval/framework/cache"
 	"github.com/totoval/framework/cmd"
@@ -41,7 +41,7 @@ func init() {
 	events.Initialize()
 	listeners.Initialize()
 
-	migration.Initialize()
+	migrations.Initialize()
 	command_queue.Initialize()
 	commands.Initialize()
 	schedule.Initialize()
