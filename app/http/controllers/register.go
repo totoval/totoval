@@ -2,8 +2,9 @@ package controllers
 
 import (
 	"errors"
-	"log"
 	"net/http"
+
+	"github.com/totoval/framework/helpers/log"
 
 	"github.com/gin-gonic/gin"
 	"github.com/totoval/framework/hub"
@@ -95,7 +96,7 @@ func (r *Register) Register(c *gin.Context) {
 	}
 	ur.SetParam(param)
 	if errs := hub.Emit(&ur); errs != nil {
-		log.Println("user registered event emit failed", ur, errs)
+		log.Info("user registered event emit failed", ur, errs)
 	}
 
 	c.JSON(http.StatusOK, gin.H{"token": token})
