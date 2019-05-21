@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"log"
+	"github.com/totoval/framework/helpers/log"
 
 	"github.com/gin-gonic/gin"
 
@@ -25,6 +25,6 @@ func Example() gin.HandlerFunc {
 
 		// access the status we are sending
 		status := c.Writer.Status()
-		log.Println(status)
+		log.Info(status)
 	}
 }
