@@ -15,8 +15,8 @@ import (
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/helpers/zone"
 	"github.com/totoval/framework/http/middleware"
+	"github.com/totoval/framework/logs"
 	"github.com/totoval/framework/queue"
-
 	"totoval/app/events"
 	"totoval/app/jobs"
 	"totoval/app/listeners"
@@ -28,6 +28,7 @@ import (
 
 func init() {
 	config.Initialize()
+	logs.Initialize()
 	zone.Initialize()
 	cache.Initialize()
 	database.Initialize()

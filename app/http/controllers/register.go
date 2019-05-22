@@ -5,8 +5,10 @@ import (
 	"net/http"
 
 	"github.com/totoval/framework/helpers/log"
+	"github.com/totoval/framework/logs"
 
 	"github.com/gin-gonic/gin"
+
 	"github.com/totoval/framework/hub"
 
 	"github.com/totoval/framework/config"
@@ -96,7 +98,7 @@ func (r *Register) Register(c *gin.Context) {
 	}
 	ur.SetParam(param)
 	if errs := hub.Emit(&ur); errs != nil {
-		log.Info("user registered event emit failed", ur, errs)
+		log.Info("user registered event emit failed", logs.Field{"event": ur, "errors": errs})
 	}
 
 	c.JSON(http.StatusOK, gin.H{"token": token})
