@@ -16,6 +16,7 @@ func init() {
 		},
 	}
 
+	queue["max_in_flight"] = Env("QUEUE_MAX_IN_FLIGHT", 25)
 	queue["failed_db_processor_model"] = &models.FailedQueue{}
 
 	Add("queue", queue)
