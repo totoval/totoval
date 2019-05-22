@@ -22,8 +22,9 @@ func init() {
 		},
 	}
 	database["migrations"] = "migrations"
-	database["max_idle_connections"] = 10
-	database["max_open_connections"] = 100
+	database["max_idle_connections"] = 2 // 2 is the cpu cores
+	database["max_open_connections"] = 2 // 2 is the cpu cores
+	database["max_life_seconds"] = 2 * 3 // 2 is the cpu cores
 
 	database["redis"] = map[string]interface{}{
 		"default": map[string]interface{}{
