@@ -10,6 +10,7 @@ func init() {
 	app["name"] = Env("APP_NAME", "Totoval")
 	app["env"] = Env("APP_ENV", "production")
 	app["debug"] = Env("APP_DEBUG", false)
+	app["log_level"] = Env("APP_LOG_LEVEL", "trace")
 	app["port"] = Env("APP_PORT", 8080)
 	app["timezone"] = "Asia/Shanghai"
 	app["locale"] = Env("APP_LOCALE", "en")
