@@ -3,8 +3,6 @@ package main
 import (
 	"context"
 	"os"
-	"os/signal"
-	"syscall"
 	"time"
 
 	"github.com/totoval/framework/graceful"
@@ -15,6 +13,7 @@ import (
 	"github.com/totoval/framework/console"
 	"github.com/totoval/framework/helpers/zone"
 	"github.com/totoval/framework/logs"
+
 	"totoval/database/migrations"
 
 	"github.com/totoval/framework/cache"
@@ -82,21 +81,9 @@ func main() {
 		return nil
 	}
 
-	go func() {
-		if err := app.Run(os.Args); err != nil {
-			log.Fatal(err.Error())
-		}
-	}()
-
-	// Wait for interrupt signal to gracefully shutdown the server with
-	// a timeout of 5 seconds.
-	quit := make(chan os.Signal, 1)
-	// kill (no param) default send syscanll.SIGTERM
-	// kill -2 is syscall.SIGINT
-	// kill -9 is syscall. SIGKILL but can"t be catch, so don't need add it
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
-	log.Info("Shutdown Server ...")
+	if err := app.Run(os.Args); err != nil {
+		log.Fatal(err.Error())
+	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer graceful.ShutDown(ctx)
