@@ -1,8 +1,14 @@
 package main
 
 import (
-	"log"
+	"context"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
+
+	"github.com/totoval/framework/graceful"
+	"github.com/totoval/framework/helpers/log"
 
 	"github.com/urfave/cli"
 
@@ -55,7 +61,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "artisan"
 	app.Usage = "Let's work like an artisan"
-	app.Version = "0.4.6"
+	app.Version = "0.5.5"
 
 	app.Commands = cmd.List()
 
@@ -76,11 +82,25 @@ func main() {
 		return nil
 	}
 
-	err := app.Run(os.Args)
-	if err != nil {
-		log.Fatal(err)
-	}
+	go func() {
+		if err := app.Run(os.Args); err != nil {
+			log.Fatal(err.Error())
+		}
+	}()
 
+	// Wait for interrupt signal to gracefully shutdown the server with
+	// a timeout of 5 seconds.
+	quit := make(chan os.Signal, 1)
+	// kill (no param) default send syscanll.SIGTERM
+	// kill -2 is syscall.SIGINT
+	// kill -9 is syscall. SIGKILL but can"t be catch, so don't need add it
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+	log.Info("Shutdown Server ...")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer graceful.ShutDown(ctx)
+	defer cancel()
 }
 
 func scheduleInit() {
