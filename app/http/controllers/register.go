@@ -36,12 +36,11 @@ func (r *Register) Register(c *gin.Context) {
 		return
 	}
 
-	var responseErr error
 	defer func() {
 		if err := recover(); err != nil {
-			var ok bool
-			responseErr, ok = err.(error)
+			responseErr, ok := err.(error)
 			if ok {
+				c.JSON(http.StatusUnprocessableEntity, gin.H{"error": responseErr.Error()})
 				return
 			}
 			panic(err)
@@ -81,11 +80,6 @@ func (r *Register) Register(c *gin.Context) {
 
 		userId = *user.ID
 	}, 1)
-
-	if responseErr != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": responseErr.Error()})
-		return
-	}
 
 	// emit user-registered event
 	ur := events.UserRegistered{}
