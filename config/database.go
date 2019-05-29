@@ -27,16 +27,21 @@ func init() {
 	database["max_life_seconds"] = Env("DB_MAX_LIFE_SECONDS", 0)         // 2 is the cpu cores
 
 	database["redis"] = map[string]interface{}{
+
+		"options": map[string]interface{}{
+			"prefix": Env("APP_NAME", "totoval").(string) + "_database_",
+		},
+
 		"default": map[string]interface{}{
 			"host":     Env("REDIS_HOST", "127.0.0.1"),
-			"password": Env("REDIS_PASSWORD", nil),
-			"port":     Env("REDIS_PORT", 6379),
+			"port":     Env("REDIS_PORT", "6379"),
+			"password": Env("REDIS_PASSWORD", ""),
 			"database": Env("REDIS_DB", 0),
 		},
 		"cache": map[string]interface{}{
 			"host":     Env("REDIS_HOST", "127.0.0.1"),
-			"password": Env("REDIS_PASSWORD", nil),
-			"port":     Env("REDIS_PORT", 6379),
+			"port":     Env("REDIS_PORT", "6379"),
+			"password": Env("REDIS_PASSWORD", ""),
 			"database": Env("REDIS_CACHE_DB", 1),
 		},
 	}

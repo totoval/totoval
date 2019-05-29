@@ -15,6 +15,10 @@ func init() {
 			"cleanup_interval_minute":   5,
 			"prefix":                    Env("CACHE_PREFIX", "totoval_"),
 		},
+		"redis": map[string]interface{}{
+			"driver":     "redis",
+			"connection": "cache",
+		},
 	}
 
 	Add("cache", cache)
