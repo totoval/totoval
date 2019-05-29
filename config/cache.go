@@ -13,7 +13,7 @@ func init() {
 			"driver":                    "memory",
 			"default_expiration_minute": 5,
 			"cleanup_interval_minute":   5,
-			"prefix":                    Env("CACHE_PREFIX", "totoval_"),
+			"prefix":                    Env("APP_NAME", "totoval").(string) + "_cache_",
 		},
 		"redis": map[string]interface{}{
 			"driver":     "redis",
