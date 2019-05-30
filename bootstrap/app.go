@@ -27,6 +27,6 @@ func Initialize() {
 	jobs.Initialize()
 	events.Initialize()
 	listeners.Initialize()
-	
+
 	validator.UpgradeValidatorV8toV9()
 }
