@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Test {
+    uint32 user_id = 1;
+    string user_name = 2;
+}
