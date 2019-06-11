@@ -1,5 +1,8 @@
 package jobs
 
-func Initialize() {
+import "github.com/totoval/framework/job"
 
+func Initialize() {
+	// initialize topic and channel
+	job.RegisterQueue()
 }

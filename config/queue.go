@@ -11,8 +11,22 @@ func init() {
 	queue["default"] = Env("QUEUE_CONNECTION", "memory")
 	queue["connections"] = map[string]interface{}{
 		"nsq": map[string]interface{}{
-			"host": Env("QUEUE_NSQ_HOST", "127.0.0.1"),
-			"port": Env("QUEUE_NSQ_PORT", "4150"),
+			"nsqd": []map[string]interface{}{
+				{
+					"tcp": map[string]interface{}{
+						"host": Env("QUEUE_NSQD_TCP_HOST", "127.0.0.1"),
+						"port": Env("QUEUE_NSQD_TCP_PORT", "4150"),
+					},
+				},
+			},
+			"nsqlookupd": []map[string]interface{}{
+				{
+					"http": map[string]interface{}{
+						"host": Env("QUEUE_NSQLOOKUPD_HTTP_HOST", "http://127.0.0.1"),
+						"port": Env("QUEUE_NSQLOOKUPD_HTTP_PORT", "4161"),
+					},
+				},
+			},
 		},
 	}
 
