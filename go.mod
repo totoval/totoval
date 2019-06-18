@@ -7,7 +7,7 @@ require (
 	github.com/go-playground/universal-translator v0.16.0
 	github.com/golang/protobuf v1.3.1
 	github.com/jinzhu/gorm v1.9.2
-	github.com/totoval/framework v0.7.1
+	github.com/totoval/framework v0.7.2
 	github.com/urfave/cli v1.20.0
 	gopkg.in/go-playground/validator.v9 v9.27.0
 )
