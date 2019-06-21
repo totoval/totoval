@@ -6,6 +6,6 @@ require (
 	github.com/jinzhu/gorm v1.9.2
 	github.com/onsi/ginkgo v1.8.0 // indirect
 	github.com/onsi/gomega v1.5.0 // indirect
-	github.com/totoval/framework v0.7.5
+	github.com/totoval/framework v0.7.6
 	github.com/urfave/cli v1.20.0
 )
