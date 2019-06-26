@@ -9,14 +9,16 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"github.com/totoval/framework/sentry"
+
 	c "github.com/totoval/framework/config"
 	"github.com/totoval/framework/graceful"
 	"github.com/totoval/framework/helpers/log"
 	"github.com/totoval/framework/helpers/zone"
 	"github.com/totoval/framework/http/middleware"
 	"github.com/totoval/framework/logs"
-	"totoval/bootstrap"
 
+	"totoval/bootstrap"
 	"totoval/resources/views"
 	"totoval/routes"
 )
@@ -55,14 +57,15 @@ func main() {
 func httpServe(ctx context.Context) {
 	r := gin.Default()
 
-	if c.GetString("app.env") == "production" {
-		r.Use(gin.Logger())
-
-		r.Use(gin.Recovery())
-	}
+	sentry.Use(r, false)
 
 	if c.GetBool("app.debug") {
 		r.Use(middleware.RequestLogger())
+	}
+
+	if c.GetString("app.env") == "production" {
+		r.Use(gin.Logger())
+		r.Use(gin.Recovery())
 	}
 
 	r.Use(middleware.Locale())
@@ -99,7 +102,7 @@ func httpServe(ctx context.Context) {
 	}
 
 	// totoval framework shutdown
-	graceful.ShutDown()
+	graceful.ShutDown(false)
 
 	log.Info("Server exiting")
 }

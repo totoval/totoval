@@ -5,6 +5,7 @@ import (
 
 	"github.com/totoval/framework/graceful"
 	"github.com/totoval/framework/helpers/log"
+	"github.com/totoval/framework/sentry"
 	"totoval/bootstrap"
 
 	"github.com/urfave/cli"
@@ -60,10 +61,16 @@ func cliServe() {
 		return nil
 	}
 
+	sentry.CapturePanic(func() {
+		// totoval framework shutdown
+		graceful.ShutDown(true)
+	})
+
 	if err := app.Run(os.Args); err != nil {
+		sentry.CaptureError(err)
 		log.Fatal(err.Error())
 	}
 
 	// totoval framework shutdown
-	graceful.ShutDown()
+	graceful.ShutDown(true)
 }
