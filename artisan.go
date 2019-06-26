@@ -6,16 +6,19 @@ import (
 	"github.com/totoval/framework/graceful"
 	"github.com/totoval/framework/helpers/log"
 	"github.com/totoval/framework/sentry"
+
 	"totoval/bootstrap"
 
 	"github.com/urfave/cli"
 
 	"github.com/totoval/framework/console"
+
 	"totoval/database/migrations"
 
 	"github.com/totoval/framework/cmd"
 	command_queue "github.com/totoval/framework/cmd/commands/queue"
 	"github.com/totoval/framework/cmd/commands/schedule"
+
 	app_schedule "totoval/app/console"
 
 	"totoval/app/console/commands"
@@ -60,11 +63,6 @@ func cliServe() {
 		}
 		return nil
 	}
-
-	sentry.CapturePanic(func() {
-		// totoval framework shutdown
-		graceful.ShutDown(true)
-	})
 
 	if err := app.Run(os.Args); err != nil {
 		sentry.CaptureError(err)
