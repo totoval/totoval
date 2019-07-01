@@ -68,3 +68,12 @@ Totoval is an API web framework that helps Golang engineers build a performance-
 * ztrue/tracerr
 * go-redis/redis
 * getsentry/raven-go
+
+## License
+This project is licensed under the [MIT license](https://github.com/totoval/totoval/blob/master/LICENSE).
+
+## Contact
+If you have any issues or feature requests, please contact us. PR is welcomed.
+
+https://github.com/totoval/totoval/issues
+me@tobyan.com
