@@ -1,7 +1,7 @@
 package groups
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/totoval/framework/route"
 	"totoval/app/http/controllers"
 )
 
@@ -10,11 +10,7 @@ type AuthGroup struct {
 	RegisterController controllers.Register
 }
 
-func (ag *AuthGroup) Register(group *gin.RouterGroup) {
-	newGroup := group.Group("")
-	{
-		newGroup.POST("/login", ag.LoginController.Login)
-		newGroup.POST("/register", ag.RegisterController.Register)
-
-	}
+func (ag *AuthGroup) Group(group route.Grouper) {
+	group.POST("/login", ag.LoginController.Login)
+	group.POST("/register", ag.RegisterController.Register)
 }

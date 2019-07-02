@@ -1,8 +1,7 @@
 package groups
 
 import (
-	"github.com/gin-gonic/gin"
-
+	"github.com/totoval/framework/route"
 	"totoval/app/http/controllers"
 )
 
@@ -10,10 +9,6 @@ type UserAffiliationGroup struct {
 	UserAffiliationController controllers.UserAffiliation
 }
 
-func (uaffg *UserAffiliationGroup) Register(group *gin.RouterGroup) {
-
-	newGroup := group.Group("/user-affiliation")
-	{
-		newGroup.GET("/all", uaffg.UserAffiliationController.RenderAll)
-	}
+func (uaffg *UserAffiliationGroup) Group(group route.Grouper) {
+	group.GET("/all", uaffg.UserAffiliationController.RenderAll)
 }
