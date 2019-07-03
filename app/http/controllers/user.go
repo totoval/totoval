@@ -28,18 +28,11 @@ func (*User) LogOut(c *gin.Context) {
 }
 
 func (*User) Info(c *gin.Context) {
-	userID, isAbort := middleware.AuthClaimsID(c)
-	if isAbort {
+	user := new(models.User)
+	if middleware.AuthUser(c, user) {
 		return
-	}
-	user := models.User{
-		ID: &userID,
 	}
 
-	if err := m.H().First(&user, false); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
-		return
-	}
 	user.Password = ptr.String("") // remove password value for response rendering
 	c.JSON(http.StatusOK, gin.H{"data": user})
 	return
