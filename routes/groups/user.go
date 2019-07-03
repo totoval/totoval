@@ -1,8 +1,10 @@
 package groups
 
 import (
+	"github.com/totoval/framework/policy"
 	"github.com/totoval/framework/route"
 	"totoval/app/http/controllers"
+	"totoval/app/policies"
 )
 
 type UserGroup struct {
@@ -10,7 +12,7 @@ type UserGroup struct {
 }
 
 func (ug *UserGroup) Group(group route.Grouper) {
-	group.GET("/info", ug.UserController.Info)
+	group.GET("/info", ug.UserController.Info).Can(policies.NewUserPolicy(), policy.ActionView)
 
 	group.GET("/update", ug.UserController.Update)
 	group.GET("/delete", ug.UserController.Delete)

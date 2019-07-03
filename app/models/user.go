@@ -35,6 +35,9 @@ func (user *User) Scan(userId uint) error {
 	*user = newUser
 	return nil
 }
+func (user *User) Value() interface{} {
+	return user
+}
 
 func (user *User) User() *User {
 	//model.DB().Where("user_id = ?", 1).Find(user)
