@@ -27,6 +27,15 @@ func (user *User) Default() interface{} {
 	return User{}
 }
 
+func (user *User) Scan(userId uint) error {
+	newUser := User{}
+	if err := m.H().First(&newUser, false); err != nil {
+		return err
+	}
+	*user = newUser
+	return nil
+}
+
 func (user *User) User() *User {
 	//model.DB().Where("user_id = ?", 1).Find(user)
 	return user
