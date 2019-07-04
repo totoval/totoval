@@ -12,7 +12,7 @@ type UserGroup struct {
 }
 
 func (ug *UserGroup) Group(group route.Grouper) {
-	group.GET("/info", ug.UserController.Info).Can(policies.NewUserPolicy(), policy.ActionView)
+	group.GET("/info/:userId", ug.UserController.Info).Can(policies.NewUserPolicy(), policy.ActionView)
 
 	group.GET("/update", ug.UserController.Update)
 	group.GET("/delete", ug.UserController.Delete)

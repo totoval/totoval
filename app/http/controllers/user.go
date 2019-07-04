@@ -27,11 +27,11 @@ func (*User) LogOut(c *gin.Context) {
 	return
 }
 
-func (*User) Info(c *gin.Context) {
-	user := new(models.User)
-	if middleware.AuthUser(c, user) {
+func (u *User) Info(c *gin.Context) {
+	if u.Scan(c) {
 		return
 	}
+	user := u.User().Value().(*models.User)
 
 	user.Password = ptr.String("") // remove password value for response rendering
 	c.JSON(http.StatusOK, gin.H{"data": user})
