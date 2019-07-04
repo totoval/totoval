@@ -76,6 +76,6 @@ This project is licensed under the [MIT license](https://github.com/totoval/toto
 ## Contact
 If you have any issues or feature requests, please contact us. PR is welcomed.
 
-https://github.com/totoval/totoval/issues  
-Slack: https://totoval.slack.com
-me@tobyan.com
+* https://github.com/totoval/totoval/issues  
+* Slack: https://totoval.slack.com
+* me@tobyan.com
