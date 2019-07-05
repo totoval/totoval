@@ -19,7 +19,7 @@ func (up *userPolicy) Before(IUser model.IUser, routeParamMap map[string]string)
 	return nil
 }
 func (up *userPolicy) Create(IUser model.IUser, routeParamMap map[string]string) bool {
-	return true
+	return false
 }
 func (up *userPolicy) Update(IUser model.IUser, routeParamMap map[string]string) bool { return true }
 func (up *userPolicy) Delete(IUser model.IUser, routeParamMap map[string]string) bool { return true }
@@ -30,6 +30,11 @@ func (up *userPolicy) View(IUser model.IUser, routeParamMap map[string]string) b
 	// get current user
 	currentUser := IUser.Value().(*models.User)
 	debug.Dump(currentUser, routeParamMap)
+
+	// if use Authorize func, routeParamMap is nil
+	if routeParamMap == nil {
+		return true
+	}
 
 	// get param user
 	userIdStr, ok := routeParamMap["userId"]
