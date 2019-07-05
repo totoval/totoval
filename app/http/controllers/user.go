@@ -10,8 +10,9 @@ import (
 	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/http/middleware"
 	"github.com/totoval/framework/model"
-
+	"github.com/totoval/framework/policy"
 	"totoval/app/models"
+	"totoval/app/policies"
 )
 
 type User struct {
@@ -32,6 +33,11 @@ func (u *User) Info(c *gin.Context) {
 		return
 	}
 	user := u.User().Value().(*models.User)
+	
+	if permit, _ := u.Authorize(c, policies.NewUserPolicy(), policy.ActionView); !permit {
+		c.JSON(http.StatusForbidden, gin.H{"error": policy.UserNotPermitError{}.Error()})
+		return
+	}
 
 	user.Password = ptr.String("") // remove password value for response rendering
 	c.JSON(http.StatusOK, gin.H{"data": user})
