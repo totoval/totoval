@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/totoval/framework/helpers/m"
+	"github.com/totoval/framework/helpers/ptr"
 	"github.com/totoval/framework/helpers/zone"
 	"github.com/totoval/framework/model"
 )
@@ -28,7 +29,9 @@ func (user *User) Default() interface{} {
 }
 
 func (user *User) Scan(userId uint) error {
-	newUser := User{}
+	newUser := User{
+		ID: ptr.Uint(userId),
+	}
 	if err := m.H().First(&newUser, false); err != nil {
 		return err
 	}
