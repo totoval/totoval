@@ -15,20 +15,20 @@ func NewUserPolicy() *userPolicy {
 	return &userPolicy{}
 }
 
-func (up *userPolicy) Before() *bool {
+func (up *userPolicy) Before(IUser model.IUser, routeParamMap map[string]string) *bool {
 	return nil
 }
-func (up *userPolicy) Create(userIF model.IUser, routeParamMap map[string]string) bool {
+func (up *userPolicy) Create(IUser model.IUser, routeParamMap map[string]string) bool {
 	return true
 }
-func (up *userPolicy) Update(userIF model.IUser, routeParamMap map[string]string) bool { return true }
-func (up *userPolicy) Delete(userIF model.IUser, routeParamMap map[string]string) bool { return true }
-func (up *userPolicy) ForceDelete(userIF model.IUser, routeParamMap map[string]string) bool {
+func (up *userPolicy) Update(IUser model.IUser, routeParamMap map[string]string) bool { return true }
+func (up *userPolicy) Delete(IUser model.IUser, routeParamMap map[string]string) bool { return true }
+func (up *userPolicy) ForceDelete(IUser model.IUser, routeParamMap map[string]string) bool {
 	return true
 }
-func (up *userPolicy) View(userIF model.IUser, routeParamMap map[string]string) bool {
+func (up *userPolicy) View(IUser model.IUser, routeParamMap map[string]string) bool {
 	// get current user
-	currentUser := userIF.Value().(*models.User)
+	currentUser := IUser.Value().(*models.User)
 	debug.Dump(currentUser, routeParamMap)
 
 	// get param user
@@ -47,4 +47,4 @@ func (up *userPolicy) View(userIF model.IUser, routeParamMap map[string]string) 
 
 	return true
 }
-func (up *userPolicy) Restore(userIF model.IUser, routeParamMap map[string]string) bool { return true }
+func (up *userPolicy) Restore(IUser model.IUser, routeParamMap map[string]string) bool { return true }
