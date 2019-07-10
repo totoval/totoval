@@ -5,13 +5,11 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 
 	"github.com/totoval/framework/helpers/debug"
 	"github.com/totoval/framework/helpers/ptr"
 	"github.com/totoval/framework/helpers/zone"
-
 	"github.com/totoval/framework/model/helper"
 
 	"github.com/totoval/framework/helpers/m"
@@ -273,7 +271,7 @@ func (uaff *UserAffiliation) ObjArr(filterArr []model.Filter, sortArr []model.So
 	}
 	return outArr, nil
 }
-func (uaff *UserAffiliation) ObjArrPaginate(c *gin.Context, perPage uint, filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (pagination model.Pagination, err error) {
+func (uaff *UserAffiliation) ObjArrPaginate(c model.Context, perPage uint, filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (pagination model.Pagination, err error) {
 	var outArr []UserAffiliation
 	filter := model.Model(*m.H().Q(filterArr, sortArr, limit, withTrashed))
 	return filter.Paginate(&outArr, c, perPage)

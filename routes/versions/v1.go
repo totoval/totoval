@@ -1,13 +1,12 @@
 package versions
 
 import (
-	"github.com/gin-gonic/gin"
-
+	"github.com/totoval/framework/request"
 	"github.com/totoval/framework/route"
 	"totoval/routes/groups"
 )
 
-func NewV1(engine *gin.Engine) {
+func NewV1(engine *request.Engine) {
 	ver := route.NewVersion(engine, "v1")
 
 	// auth routes

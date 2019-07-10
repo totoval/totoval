@@ -1,9 +1,8 @@
 package models
 
 import (
-	"github.com/gin-gonic/gin"
-
 	"github.com/totoval/framework/helpers/zone"
+	"github.com/totoval/framework/request"
 
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/helpers/pb"
@@ -123,7 +122,7 @@ func (fq *FailedQueue) ObjArr(filterArr []model.Filter, sortArr []model.Sort, li
 	}
 	return outArr, nil
 }
-func (fq *FailedQueue) ObjArrPaginate(c *gin.Context, perPage uint, filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (pagination model.Pagination, err error) {
+func (fq *FailedQueue) ObjArrPaginate(c *request.Context, perPage uint, filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (pagination model.Pagination, err error) {
 	var outArr []FailedQueue
 	filter := model.Model(*m.H().Q(filterArr, sortArr, limit, withTrashed))
 	return filter.Paginate(&outArr, c, perPage)

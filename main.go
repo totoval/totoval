@@ -7,17 +7,14 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/gin-gonic/gin"
-
-	"github.com/totoval/framework/sentry"
-
 	c "github.com/totoval/framework/config"
 	"github.com/totoval/framework/graceful"
 	"github.com/totoval/framework/helpers/log"
+	"github.com/totoval/framework/helpers/toto"
 	"github.com/totoval/framework/helpers/zone"
 	"github.com/totoval/framework/http/middleware"
-	"github.com/totoval/framework/logs"
-
+	"github.com/totoval/framework/request"
+	"github.com/totoval/framework/sentry"
 	"totoval/bootstrap"
 	"totoval/resources/views"
 	"totoval/routes"
@@ -47,7 +44,7 @@ func main() {
 
 	go func() {
 		call := <-quit
-		log.Info("system call", logs.Field{"call": call})
+		log.Info("system call", toto.V{"call": call})
 		cancel()
 	}()
 
@@ -55,17 +52,17 @@ func main() {
 }
 
 func httpServe(ctx context.Context) {
-	r := gin.Default()
+	r := request.New()
 
-	sentry.Use(r, false)
+	sentry.Use(r.GinEngine(), false)
 
 	if c.GetBool("app.debug") {
 		r.Use(middleware.RequestLogger())
 	}
 
 	if c.GetString("app.env") == "production" {
-		r.Use(gin.Logger())
-		r.Use(gin.Recovery())
+		r.Use(middleware.Logger())
+		r.Use(middleware.Recovery())
 	}
 
 	r.Use(middleware.Locale())
@@ -98,7 +95,7 @@ func httpServe(ctx context.Context) {
 	defer cancel()
 
 	if err := s.Shutdown(_ctx); err != nil {
-		log.Fatal("Server Shutdown: ", logs.Field{"error": err})
+		log.Fatal("Server Shutdown: ", toto.V{"error": err})
 	}
 
 	// totoval framework shutdown

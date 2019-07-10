@@ -1,8 +1,7 @@
 package config
 
 import (
-	"github.com/gin-gonic/gin"
-
+	"github.com/totoval/framework/app"
 	"github.com/totoval/framework/config"
 )
 
@@ -11,7 +10,14 @@ func Initialize() {
 }
 
 func setAppMode() {
-	if config.GetString("app.env") == "production" {
-		gin.SetMode(gin.ReleaseMode)
+	switch config.GetString("app.env") {
+	case "production":
+		app.SetMode(app.ModeProduction)
+	case "develop":
+		app.SetMode(app.ModeDevelop)
+	case "test":
+		app.SetMode(app.ModeTest)
+	default:
+		app.SetMode(app.ModeDevelop)
 	}
 }

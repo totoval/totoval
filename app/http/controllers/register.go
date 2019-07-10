@@ -5,9 +5,8 @@ import (
 	"net/http"
 
 	"github.com/totoval/framework/helpers/log"
-	"github.com/totoval/framework/logs"
-
-	"github.com/gin-gonic/gin"
+	"github.com/totoval/framework/helpers/toto"
+	"github.com/totoval/framework/request"
 
 	"github.com/totoval/framework/hub"
 
@@ -29,7 +28,7 @@ type Register struct {
 	controller.BaseController
 }
 
-func (r *Register) Register(c *gin.Context) {
+func (r *Register) Register(c *request.Context) {
 	// validate and assign requestData
 	var requestData requests.UserRegister
 	if !r.Validate(c, &requestData, true) {
@@ -40,7 +39,7 @@ func (r *Register) Register(c *gin.Context) {
 		if err := recover(); err != nil {
 			responseErr, ok := err.(error)
 			if ok {
-				c.JSON(http.StatusUnprocessableEntity, gin.H{"error": responseErr.Error()})
+				c.JSON(http.StatusUnprocessableEntity, toto.V{"error": responseErr.Error()})
 				return
 			}
 			panic(err)
@@ -92,9 +91,9 @@ func (r *Register) Register(c *gin.Context) {
 	}
 	ur.SetParam(param)
 	if errs := hub.Emit(&ur); errs != nil {
-		log.Info("user registered event emit failed", logs.Field{"event": ur, "errors": errs})
+		log.Info("user registered event emit failed", toto.V{"event": ur, "errors": errs})
 	}
 
-	c.JSON(http.StatusOK, gin.H{"token": token})
+	c.JSON(http.StatusOK, toto.V{"token": token})
 	return
 }
