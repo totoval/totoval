@@ -3,7 +3,6 @@ package controllers
 import (
 	"net/http"
 
-	"github.com/totoval/framework/helpers/debug"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/helpers/ptr"
 	"github.com/totoval/framework/helpers/toto"
@@ -12,6 +11,7 @@ import (
 	"github.com/totoval/framework/model"
 	"github.com/totoval/framework/policy"
 	"github.com/totoval/framework/request"
+
 	"totoval/app/models"
 	"totoval/app/policies"
 )
@@ -30,7 +30,6 @@ func (*User) LogOut(c *request.Context) {
 }
 
 func (u *User) Info(c *request.Context) {
-	debug.DD(u.Context())
 	if u.Scan(c) {
 		return
 	}
