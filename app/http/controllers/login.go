@@ -51,6 +51,6 @@ func (l *Login) Login(c *request.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, toto.V{"error": helpers.L(c, "auth.login.failed_token_generate_error")})
+	c.JSON(http.StatusUnprocessableEntity, toto.V{"error": helpers.L(c, "auth.login.failed_token_generate_error")})
 	return
 }
