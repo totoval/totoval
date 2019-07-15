@@ -67,6 +67,8 @@ func httpServe(ctx context.Context) {
 
 	r.Use(middleware.Locale())
 
+	//r.Use(middleware.IUser(&models.YourUserModel{})) // set default auth user model, or use config auth.model_ptr
+
 	routes.Register(r)
 
 	views.Initialize(r)
