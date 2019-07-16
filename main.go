@@ -82,6 +82,7 @@ func httpServe(ctx context.Context) {
 	}
 
 	go func() {
+		log.Info("Served At", toto.V{"Addr": s.Addr})
 		if err := s.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatal(err.Error())
 		}
