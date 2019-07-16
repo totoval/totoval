@@ -45,6 +45,7 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 - [x] Http Request Package `biu`
 - [x] Error Notifier `sentry`
 - [x] User Authorization
+- [x] Multi Ports Serving
 - [ ] Model Getter/Setter
 - [ ] File Storage
 - [ ] Database Seeder

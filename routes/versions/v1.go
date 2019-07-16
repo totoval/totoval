@@ -1,6 +1,7 @@
 package versions
 
 import (
+	"github.com/totoval/framework/config"
 	"github.com/totoval/framework/request"
 	"github.com/totoval/framework/route"
 	"totoval/routes/groups"
@@ -10,7 +11,7 @@ func NewV1(engine *request.Engine) {
 	ver := route.NewVersion(engine, "v1")
 
 	// auth routes
-	ver.Auth("", func(grp route.Grouper) {
+	ver.Auth(config.GetString("auth.sign_key"), "", func(grp route.Grouper) {
 		grp.AddGroup("/user", &groups.UserGroup{})
 	})
 
