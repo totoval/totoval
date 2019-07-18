@@ -46,12 +46,12 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 - [x] Error Notifier `sentry`
 - [x] User Authorization
 - [x] Multi Ports Serving
-- [ ] Model Getter/Setter
+- [ ] Model Getter/Setter ***PLANNED***
+- [ ] Database Seeder ***PLANNED***
+- [ ] More Unit Test ***PLANNED***
+- [ ] Websocket Support ***PLANNED***
+- [ ] Website && Document ***WIP***
 - [ ] File Storage
-- [ ] Database Seeder
-- [ ] More Unit Test
-- [ ] Websocket Support
-- [ ] Website && Document
 - [ ] CI
 
 ## Thanks
