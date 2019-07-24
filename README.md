@@ -46,12 +46,12 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 - [x] Error Notifier `sentry`
 - [x] User Authorization
 - [x] Multi Ports Serving
-- [ ] Model Getter/Setter ***PLANNED***
+- [x] Model Mutator Getter/Setter
 - [ ] Database Seeder ***PLANNED***
 - [ ] More Unit Test ***PLANNED***
 - [ ] Websocket Support ***PLANNED***
 - [ ] Website && Document ***WIP***
-- [ ] File Storage
+- [ ] File Storage ***PLANNED***
 - [ ] CI
 
 ## Thanks
@@ -70,6 +70,7 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 * ztrue/tracerr
 * go-redis/redis
 * getsentry/raven-go
+* iancoleman/strcase
 
 ## License
 This project is licensed under the [MIT license](https://github.com/totoval/totoval/blob/master/LICENSE).

@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/totoval/framework/helpers/m"
-	"github.com/totoval/framework/helpers/ptr"
 	"github.com/totoval/framework/helpers/toto"
 	"github.com/totoval/framework/http/controller"
 	"github.com/totoval/framework/http/middleware"
@@ -40,7 +39,6 @@ func (u *User) Info(c *request.Context) {
 		return
 	}
 
-	user.Password = ptr.String("") // remove password value for response rendering
 	c.JSON(http.StatusOK, toto.V{"data": user})
 	return
 }

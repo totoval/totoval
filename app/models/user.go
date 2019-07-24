@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/totoval/framework/helpers/hash"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/helpers/ptr"
 	"github.com/totoval/framework/helpers/zone"
@@ -43,6 +44,16 @@ func (user *User) Value() interface{} {
 func (user *User) User() *User {
 	//model.DB().Where("user_id = ?", 1).Find(user)
 	return user
+}
+
+// Mutator: auto generate user name
+func (user *User) SetNameAttribute(value interface{}) {
+	user.Name = ptr.String(hash.Md5(*user.Email))
+}
+
+// Mutator: auto hidden password
+func (user *User) GetPasswordAttribute(value interface{}) interface{} {
+	return ptr.String("xxx")
 }
 
 func (user *User) ObjArr(filterArr []model.Filter, sortArr []model.Sort, limit int, withTrashed bool) (interface{}, error) {
