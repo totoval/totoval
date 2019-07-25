@@ -31,7 +31,7 @@ type Register struct {
 func (r *Register) Register(c *request.Context) {
 	// validate and assign requestData
 	var requestData requests.UserRegister
-	if !r.Validate(c, &requestData, true) {
+	if !r.ValidateJSON(c, &requestData, true) {
 		return
 	}
 
