@@ -11,7 +11,7 @@ func init() {
 	app["env"] = Env("APP_ENV", "production")
 	app["debug"] = Env("APP_DEBUG", false)
 	app["log_level"] = Env("APP_LOG_LEVEL", "trace")
-	app["port"] = Env("APP_PORT", 8080)
+	app["port"] = Env("APP_PORT", "80")
 	app["timezone"] = "Asia/Shanghai"
 	app["locale"] = Env("APP_LOCALE", "en")
 	app["fallback_locale"] = "en"
