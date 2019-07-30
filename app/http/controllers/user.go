@@ -19,7 +19,7 @@ type User struct {
 	controller.BaseController
 }
 
-func (*User) LogOut(c *request.Context) {
+func (*User) LogOut(c request.Context) {
 	if err := middleware.Revoke(c); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, toto.V{"error": err.Error()})
 		return
@@ -28,7 +28,7 @@ func (*User) LogOut(c *request.Context) {
 	return
 }
 
-func (u *User) Info(c *request.Context) {
+func (u *User) Info(c request.Context) {
 	if u.Scan(c) {
 		return
 	}
@@ -43,7 +43,7 @@ func (u *User) Info(c *request.Context) {
 	return
 }
 
-func (*User) AllUser(c *request.Context) {
+func (*User) AllUser(c request.Context) {
 	user := &models.User{}
 	outArr, err := user.ObjArr([]model.Filter{}, []model.Sort{}, 0, false)
 	if err != nil {
@@ -54,7 +54,7 @@ func (*User) AllUser(c *request.Context) {
 	return
 }
 
-func (*User) PaginateUser(c *request.Context) {
+func (*User) PaginateUser(c request.Context) {
 	user := &models.User{}
 	pagination, err := user.ObjArrPaginate(c, 25, []model.Filter{}, []model.Sort{}, 0, false)
 	if err != nil {
@@ -65,7 +65,7 @@ func (*User) PaginateUser(c *request.Context) {
 	return
 }
 
-func (*User) Update(c *request.Context) {
+func (*User) Update(c request.Context) {
 	var id uint
 	id = 14
 	user := models.User{
@@ -92,7 +92,7 @@ func (*User) Update(c *request.Context) {
 	// 	panic(123)
 	// }, 3)
 }
-func (*User) Delete(c *request.Context) {
+func (*User) Delete(c request.Context) {
 	var id uint
 	id = 14
 	user := models.User{
@@ -105,7 +105,7 @@ func (*User) Delete(c *request.Context) {
 	c.JSON(http.StatusOK, toto.V{"data": true})
 	return
 }
-func (*User) DeleteTransaction(c *request.Context) {
+func (*User) DeleteTransaction(c request.Context) {
 	defer func() { // handle transaction error
 		if err := recover(); err != nil {
 			c.JSON(http.StatusUnprocessableEntity, toto.V{"error": err.(error).Error()})
@@ -128,7 +128,7 @@ func (*User) DeleteTransaction(c *request.Context) {
 	c.JSON(http.StatusOK, toto.V{"data": true})
 	return
 }
-func (*User) Restore(c *request.Context) {
+func (*User) Restore(c request.Context) {
 	var id uint
 	id = 14
 	modifyUser := models.User{
