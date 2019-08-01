@@ -80,5 +80,5 @@ If you have any issues or feature requests, please contact us. PR is welcomed.
 
 * https://github.com/totoval/framework/issues  
 * Slack: https://totoval.slack.com
-* @Zulip: https://totoval.zulipchat.com
+* Zulip: https://totoval.zulipchat.com
 * totoval@tobyan.com
