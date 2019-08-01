@@ -29,10 +29,10 @@ func (*User) LogOut(c request.Context) {
 }
 
 func (u *User) Info(c request.Context) {
-	if u.Scan(c) {
+	if c.ScanUserWithJSON() {
 		return
 	}
-	user := u.User(c).Value().(*models.User)
+	user := c.User().Value().(*models.User)
 
 	if permit, _ := u.Authorize(c, policies.NewUserPolicy(), policy.ActionView); !permit {
 		c.JSON(http.StatusForbidden, toto.V{"error": policy.UserNotPermitError{}.Error()})
