@@ -13,7 +13,7 @@ import (
 	"github.com/totoval/framework/helpers/log"
 	"github.com/totoval/framework/helpers/toto"
 	"github.com/totoval/framework/helpers/zone"
-	"github.com/totoval/framework/http/middleware"
+	"github.com/totoval/framework/monitor"
 	"github.com/totoval/framework/request"
 	"github.com/totoval/framework/sentry"
 
@@ -53,6 +53,8 @@ func main() {
 	wg := &sync.WaitGroup{}
 	wg.Add(1)
 	go httpServe(ctx, wg)
+	wg.Add(1)
+	go monitor.HttpMonitorServe(ctx, wg)
 
 	wg.Wait()
 }
@@ -62,16 +64,7 @@ func httpServe(parentCtx context.Context, wg *sync.WaitGroup) {
 
 	sentry.Use(r.GinEngine(), false)
 
-	if c.GetBool("app.debug") {
-		r.Use(middleware.RequestLogger())
-	}
-
-	if c.GetString("app.env") == "production" {
-		r.Use(middleware.Logger())
-		r.Use(middleware.Recovery())
-	}
-
-	r.Use(middleware.Locale())
+	bootstrap.Middleware(r)
 
 	//r.Use(middleware.IUser(&models.YourUserModel{})) // set default auth user model, or use config auth.model_ptr
 
