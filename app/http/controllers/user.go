@@ -32,7 +32,7 @@ func (u *User) Info(c request.Context) {
 	if u.Scan(c) {
 		return
 	}
-	user := u.User().Value().(*models.User)
+	user := u.User(c).Value().(*models.User)
 
 	if permit, _ := u.Authorize(c, policies.NewUserPolicy(), policy.ActionView); !permit {
 		c.JSON(http.StatusForbidden, toto.V{"error": policy.UserNotPermitError{}.Error()})
