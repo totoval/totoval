@@ -71,6 +71,7 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 * go-redis/redis
 * getsentry/raven-go
 * iancoleman/strcase
+* gorilla/websocket
 
 ## License
 This project is licensed under the [MIT license](https://github.com/totoval/totoval/blob/master/LICENSE).
