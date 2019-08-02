@@ -13,7 +13,7 @@ type UserAffiliation struct {
 	controller.BaseController
 }
 
-func (uaff *UserAffiliation) RenderAll(c *request.Context) {
+func (uaff *UserAffiliation) RenderAll(c request.Context) {
 	var u models.UserAffiliation
 	c.HTML(http.StatusOK, "user_affiliation.nodes", toto.V{
 		"data": u.All(),

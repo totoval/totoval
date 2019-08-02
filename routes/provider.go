@@ -7,7 +7,7 @@ import (
 )
 
 func Register(router *request.Engine) {
-	defer route.Bind()
+	defer route.Bind(router)
 
 	versions.NewV1(router)
 }

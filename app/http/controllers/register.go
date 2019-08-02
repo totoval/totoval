@@ -28,7 +28,7 @@ type Register struct {
 	controller.BaseController
 }
 
-func (r *Register) Register(c *request.Context) {
+func (r *Register) Register(c request.Context) {
 	// validate and assign requestData
 	var requestData requests.UserRegister
 	if !r.ValidateJSON(c, &requestData, true) {
