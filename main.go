@@ -57,6 +57,11 @@ func main() {
 	go monitor.HttpMonitorServe(ctx, wg)
 
 	wg.Wait()
+
+	// totoval framework shutdown
+	graceful.ShutDown(false)
+
+	log.Info("Server exited")
 }
 
 func httpServe(parentCtx context.Context, wg *sync.WaitGroup) {
@@ -99,11 +104,6 @@ func httpServe(parentCtx context.Context, wg *sync.WaitGroup) {
 	if err := s.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown: ", toto.V{"error": err})
 	}
-
-	// totoval framework shutdown
-	graceful.ShutDown(false)
-
-	log.Info("Server exiting")
 
 	wg.Done()
 }
