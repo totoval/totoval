@@ -47,7 +47,7 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 - [x] User Authorization
 - [x] Multi Ports Serving
 - [x] Model Mutator Getter/Setter
-- [ ] Websocket Support ***WIP***
+- [x] Websocket Support
 - [ ] Monitor ***WIP***
 - [ ] Database Seeder ***PLANNED***
 - [ ] More Unit Test ***PLANNED***
