@@ -3,8 +3,8 @@ package policies
 import (
 	"strconv"
 
-	"github.com/totoval/framework/auth"
 	"github.com/totoval/framework/helpers/debug"
+	"github.com/totoval/framework/request/http/auth"
 	"totoval/app/models"
 )
 

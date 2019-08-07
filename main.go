@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 
 	c "github.com/totoval/framework/config"
@@ -12,9 +13,10 @@ import (
 	"github.com/totoval/framework/helpers/log"
 	"github.com/totoval/framework/helpers/toto"
 	"github.com/totoval/framework/helpers/zone"
-	"github.com/totoval/framework/http/middleware"
+	"github.com/totoval/framework/monitor"
 	"github.com/totoval/framework/request"
 	"github.com/totoval/framework/sentry"
+
 	"totoval/bootstrap"
 	"totoval/resources/views"
 	"totoval/routes"
@@ -48,24 +50,26 @@ func main() {
 		cancel()
 	}()
 
-	httpServe(ctx)
+	wg := &sync.WaitGroup{}
+	wg.Add(1)
+	go httpServe(ctx, wg)
+	wg.Add(1)
+	go monitor.HttpMonitorServe(ctx, wg)
+
+	wg.Wait()
+
+	// totoval framework shutdown
+	graceful.ShutDown(false)
+
+	log.Info("Server exited")
 }
 
-func httpServe(ctx context.Context) {
+func httpServe(parentCtx context.Context, wg *sync.WaitGroup) {
 	r := request.New()
 
 	sentry.Use(r.GinEngine(), false)
 
-	if c.GetBool("app.debug") {
-		r.Use(middleware.RequestLogger())
-	}
-
-	if c.GetString("app.env") == "production" {
-		r.Use(middleware.Logger())
-		r.Use(middleware.Recovery())
-	}
-
-	r.Use(middleware.Locale())
+	bootstrap.Middleware(r)
 
 	//r.Use(middleware.IUser(&models.YourUserModel{})) // set default auth user model, or use config auth.model_ptr
 
@@ -88,21 +92,18 @@ func httpServe(ctx context.Context) {
 		}
 	}()
 
-	<-ctx.Done()
+	<-parentCtx.Done()
 
 	log.Info("Shutdown Server ...")
 
 	// Wait for interrupt signal to gracefully shutdown the server with
 	// a timeout of 5 seconds.
-	_ctx, cancel := context.WithTimeout(ctx, 5*zone.Second)
+	ctx, cancel := context.WithTimeout(parentCtx, 5*zone.Second)
 	defer cancel()
 
-	if err := s.Shutdown(_ctx); err != nil {
+	if err := s.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown: ", toto.V{"error": err})
 	}
 
-	// totoval framework shutdown
-	graceful.ShutDown(false)
-
-	log.Info("Server exiting")
+	wg.Done()
 }

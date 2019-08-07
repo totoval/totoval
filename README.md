@@ -47,9 +47,10 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 - [x] User Authorization
 - [x] Multi Ports Serving
 - [x] Model Mutator Getter/Setter
+- [x] Websocket Support
+- [ ] Monitor ***WIP***
 - [ ] Database Seeder ***PLANNED***
 - [ ] More Unit Test ***PLANNED***
-- [ ] Websocket Support ***PLANNED***
 - [ ] Website && Document ***WIP***
 - [ ] File Storage ***PLANNED***
 - [ ] CI
@@ -71,6 +72,7 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 * go-redis/redis
 * getsentry/raven-go
 * iancoleman/strcase
+* gorilla/websocket
 
 ## License
 This project is licensed under the [MIT license](https://github.com/totoval/totoval/blob/master/LICENSE).
@@ -80,4 +82,5 @@ If you have any issues or feature requests, please contact us. PR is welcomed.
 
 * https://github.com/totoval/framework/issues  
 * Slack: https://totoval.slack.com
+* Zulip: https://totoval.zulipchat.com
 * totoval@tobyan.com

@@ -6,7 +6,7 @@ import (
 )
 
 func Example() request.HandlerFunc {
-	return func(c *request.Context) {
+	return func(c request.Context) {
 		t := zone.Now()
 
 		// Set example variable

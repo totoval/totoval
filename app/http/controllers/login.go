@@ -20,7 +20,7 @@ type Login struct {
 	controller.BaseController
 }
 
-func (l *Login) Login(c *request.Context) {
+func (l *Login) Login(c request.Context) {
 	// validate and assign requestData
 	var requestData requests.UserLogin
 	if !l.ValidateJSON(c, &requestData, true) {
