@@ -1,8 +1,8 @@
 module totoval
 
 require (
-	github.com/golang/protobuf v1.3.1
-	github.com/jinzhu/gorm v1.9.2
-	github.com/totoval/framework v0.11.4
-	github.com/urfave/cli v1.20.0
+	github.com/golang/protobuf v1.3.2
+	github.com/jinzhu/gorm v1.9.10
+	github.com/totoval/framework v0.11.5
+	github.com/urfave/cli v1.21.0
 )
