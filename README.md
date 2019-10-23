@@ -49,6 +49,7 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 - [x] Model Mutator Getter/Setter
 - [x] Websocket Support
 - [ ] Monitor ***WIP***
+- [ ] GRPC Serving ***PLANNED***
 - [ ] Database Seeder ***PLANNED***
 - [ ] More Unit Test ***PLANNED***
 - [ ] Website && Document ***WIP***
