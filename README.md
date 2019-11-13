@@ -13,6 +13,9 @@ Totoval is an API web framework that helps Golang engineers build a performance-
 ## Docs
 Refer to [https://totoval.com](https://totoval.com/docs/introduction/introduction/)
 
+## Structure
+![v1.x.x-structure](https://raw.githubusercontent.com/totoval/framework/master/.github/README_ASSETS/v1.x.x-structure.png)
+
 ## Roadmap
 - [x] Env Configuration
 - [x] Groupable Router
