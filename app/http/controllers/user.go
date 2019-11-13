@@ -3,6 +3,7 @@ package controllers
 import (
 	"net/http"
 
+	"github.com/totoval/framework/config"
 	"github.com/totoval/framework/helpers/m"
 	"github.com/totoval/framework/helpers/toto"
 	"github.com/totoval/framework/http/controller"
@@ -20,7 +21,7 @@ type User struct {
 }
 
 func (*User) LogOut(c request.Context) {
-	if err := middleware.Revoke(c); err != nil {
+	if err := middleware.Revoke(c, config.GetString("auth.sign_key")); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, toto.V{"error": err.Error()})
 		return
 	}
