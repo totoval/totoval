@@ -17,6 +17,9 @@ Refer to [https://totoval.com](https://totoval.com/docs/introduction/introductio
 ![v1.x.x-structure](https://raw.githubusercontent.com/totoval/framework/master/.github/README_ASSETS/v1.x.x-structure.png)
 
 ## Roadmap
+
+> v1.0.0 WIP -> [See More...](https://github.com/totoval/)
+
 - [x] Env Configuration
 - [x] Groupable Router
 - [x] Request Middleware
